@@ -1,0 +1,22 @@
+.h5-canvas-wrapper{
+    height: calc(100% - 60px);
+    .h5-canvas-container{
+        .h5-canvas-header{
+            height: 60px;
+            background: url('/assets/image/canvas-header.svg') no-repeat center;
+            background-size: 100%;
+            width: 100%;
+            align-items: flex-end;
+            font-size: 16px;
+            padding-bottom: 8px;
+        }
+        .h5-canvas-draw{
+            width: 375px;
+            height: 667px;
+            background-color: transparent;
+            align-items: flex-end;
+            position: relative;
+        }
+    }
+   
+}

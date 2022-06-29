@@ -1,0 +1,69 @@
+@import url('./common.scss');
+@import url('./icon.scss');
+@import '~antd/dist/antd.css';
+
+html, body, p, h1, h2, h3, h4, h5, h6, ul, li , ol{
+    margin: 0;
+    padding: 0;
+}
+ul, li{
+    list-style: none;
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: 400;
+    font-size: 16px;
+    color: #333;
+}
+
+button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #ccd5db;
+    border-radius: 3px;
+    color: #333;
+    transition: all 0.4s;
+}
+
+input{
+    outline: none;
+}
+
+img, button{
+    display: block;
+  }
+
+.position-center{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.flex-start{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.flex-end{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-space-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex-space-around{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+  

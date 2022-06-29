@@ -1,0 +1,87 @@
+
+.icon-text{
+    background: url('/assets/image/icon-text.png') no-repeat top 8px center;
+    background-size: 20px;
+}
+
+.icon-text:hover {
+    background: url('/assets/image/icon-text-select.png') no-repeat top 8px center;
+    background-size: 20px;
+    background-color: #1261ff;
+    color: #fff !important;
+}
+
+.icon-image{
+    // 707070
+    background: url('/assets/image/icon-image.png') no-repeat top 4px center;
+    background-size: 26px;
+}
+
+.icon-image:hover {
+    background: url('/assets/image/icon-image-select.png') no-repeat top 4px center;
+    background-size: 26px;
+    background-color: #1261ff;
+    color: #fff !important;
+}
+
+.icon-music{
+    // 707070
+    background: url('/assets/image/icon-music.png') no-repeat top 6px center;
+    background-size: 23px;
+}
+
+.icon-music:hover {
+    background: url('/assets/image/icon-music-select.png') no-repeat top 6px center;
+    background-size: 23px;
+    background-color: #1261ff;
+    color: #fff !important;
+}
+
+.icon-video{
+    background: url('/assets/image/icon-video.png') no-repeat top 4px center;
+    background-size: 25px;
+}
+
+.icon-video:hover {
+    background: url('/assets/image/icon-video-select.png') no-repeat top 4px center;
+    background-size: 25px;
+    background-color: #1261ff;
+    color: #fff !important;
+}
+
+.icon-clear{
+    background: url('/assets/image/icon-clear.png') no-repeat top 4px center;
+    background-size: 25px;
+}
+
+.icon-clear:hover {
+    background: url('/assets/image/icon-clear-select.png') no-repeat top 4px center;
+    background-size: 25px;
+    background-color: #1261ff;
+    color: #fff !important;
+}
+
+.icon-close{
+    background: url('/assets/image/icon-close.png') no-repeat  center;
+    background-size: 16px;
+}
+
+.icon-close:hover{
+    background: url('/assets/image/icon-close-select.png') no-repeat  center;
+    background-size: 16px;
+}
+
+.icon-bottom-arrow{
+    background:  url('/assets/image/icon-bottom-arrow.png') no-repeat  center;
+    background-size: 12px;
+}
+
+.icon-font-size-increase{
+    background:  url('/assets/image/icon-font-size-increase.png') no-repeat  center;
+    background-size: 70%;
+}
+
+.icon-font-size-reduce{
+    background:  url('/assets/image/icon-font-size-reduce.png') no-repeat  center;
+    background-size: 70%;
+}

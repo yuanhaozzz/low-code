@@ -1,0 +1,39 @@
+.h5-header-wrapper{
+    height: 60px;
+    background-color: #fff;
+    position: relative;
+    z-index: 1;
+    .header-right{
+        button{
+            margin-right: 20px;
+        }
+        .send{
+            color: #fff;
+            background-color: #1261ff;
+        }
+        .quit{
+            color: #fff;
+            background-color: #666;
+        }
+    }
+    .header-center{
+        top: 0;
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        .header-center-item{
+            height: 56px;
+            width: 60px;
+            text-align: center;
+            flex-direction: column;
+            padding-bottom: 5px;
+            box-sizing: border-box;
+            color: #333;
+            cursor: pointer;
+            transition: all .3s;
+            font-size: 14px;
+        }
+    }
+}

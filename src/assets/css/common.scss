@@ -1,0 +1,31 @@
+
+.toast-wrapper{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    background-color: rgba(75, 64, 64, 0.7);
+    border-radius: 10px;
+    padding: 15px 20px;
+    z-index: 999;
+    white-space:nowrap;
+    font-size: 22px;
+    user-select: none;
+    z-index: 999999;
+  }
+
+
+  .button-hover-default:hover{
+    color: #fff;
+    background-color: #1261ff !important;
+  }
+
+  .button-hover-send:hover{
+    background-color: #2c72ff !important;
+    color: #fff;
+  }
+
+  .button-hover-quit:hover{
+    background-color: #ff296a !important;
+  }

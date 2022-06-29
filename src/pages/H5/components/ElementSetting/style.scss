@@ -1,0 +1,52 @@
+.element-setting-wrapper{
+    position: absolute;
+    width: 260px;
+    height: 100%;
+    background-color: #fff;
+    top: 60px;
+    right: 180px;
+    z-index: 1041;
+    box-shadow: 0 0 16px rgb(0 0 0 / 16%);
+    user-select: none;
+    .element-setting-top{
+        cursor: move;
+        height: 48px;
+        line-height: 48px;
+        background-color: #fff;
+        padding: 0 16px;
+        color: #333;
+        h1{
+            font-size: 14px;
+        }
+        i{
+            width: 50px;
+            height: 100%;
+            cursor: pointer;
+        }
+    }
+    .element-setting-tab{
+        li{
+            border-bottom: 1px solid #ccd5db;
+            flex: 1;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+        }
+        li:hover{
+            color: #1261ff;
+            border-bottom: 2px solid #1261ff!important;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .action{
+            color: #1261ff;
+            border-bottom: 2px solid #1261ff!important;
+            cursor: pointer;
+            font-weight: 700;
+        }
+    }
+}
