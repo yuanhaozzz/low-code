@@ -1,11 +1,13 @@
-import React, { Component, useEffect, useState, useContext } from "react";
+import React, {  useEffect, useState, useContext } from "react";
 import { GlobalContext } from "src/global/globalCommon";
 
-function Text(props) {
+interface Props{
+  componentKey: number
+}
+
+function Text(props: Props) {
   const global = useContext(GlobalContext);
   const { componentKey } = props;
-
-  console.log(componentKey);
 
   const data = global.find(componentKey);
 
@@ -14,7 +16,7 @@ function Text(props) {
   const [, update] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = global.subscribe(data.key, () => {
+    const unsubscribe = global.subscribe(data.key + '', () => {
       forceUpdate();
     });
     return () => {
@@ -27,8 +29,8 @@ function Text(props) {
   };
 
   return (
-    <div className="common-text-wrapper" style={style} data-key={key}>
-      我是text
+    <div className="common-text-wrapper common-component-hover" style={style} data-component-key={key}>
+      双击编辑文本...
     </div>
   );
 }

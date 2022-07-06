@@ -1,0 +1,31 @@
+.style-color{
+    position: relative;
+    .left{
+        color: #333;
+    }
+    .right{
+        width: 110px;
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        border-radius: 3px;
+        height: 32px;
+        overflow: hidden;
+        border: 1px solid #e6ebed;
+        background-position: right 2px center;
+        background-size: 25px;
+        .right-color{
+            width: 78px;
+            height: 100%;
+            background-color: red;
+        }
+    }
+    .style-color-select{
+        position: absolute;
+        left: -180px;
+        top: 0;
+        .sketch-picker{
+            width: 258px !important;
+        }
+    }
+}

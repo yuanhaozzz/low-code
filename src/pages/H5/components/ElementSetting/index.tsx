@@ -117,6 +117,7 @@ function ElementSetting() {
       </ul>
     );
   };
+  
   if (!selectComponent || !selectComponent.type) {
     return <Fragment></Fragment>;
   }

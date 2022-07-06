@@ -8,10 +8,13 @@ const defaultStyle = {
 export const jsonText = {
   type: "1",
   style: {
-    width: '100%',
+    width: '150px',
+    height: '31px',
     fontSize: "14px",
-    textAlign: 'center',
-    padding: '10px 0',
+    color: '#000',
+    textAlign: 'left',
+    padding: '5px',
+    boxSizing: 'border-box',
     ...defaultStyle,
   },
   animation: {},

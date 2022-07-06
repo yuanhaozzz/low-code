@@ -1,20 +1,23 @@
 import React, { useEffect, Fragment, useContext, useRef } from "react";
-// import { message } from "antd";
+import { message } from "antd";
 
 import "./style.scss";
 import { GlobalContext } from "src/global/globalCommon";
-
 import { components } from "src/constants/components";
+
+import CanvasSelectElement from '../CanvasSelectElement/index'
 
 let isMove = false;
 let targetElement = null;
 let mouseDownX = 0;
 let mouseDownY = 0;
-function CanvasContent(props) {
+let componentKey = undefined
+function CanvasContent() {
   const global = useContext(GlobalContext);
   const { componentList } = global.globalData;
   const canvasWrapRef = useRef(null);
 
+  // 订阅鼠标移动
   useEffect(() => {
     const unSubscribe = global.subscribe("mousemove", (e) => {
       mouseMove(e);
@@ -24,6 +27,7 @@ function CanvasContent(props) {
     };
   }, []);
 
+  // 订阅鼠标抬起
   useEffect(() => {
     const unsubscribe = global.subscribe("mouseup", () => {
       mouseUp();
@@ -33,15 +37,22 @@ function CanvasContent(props) {
     };
   }, []);
 
+  // 订阅鼠标按下
+  useEffect(() => {
+    const unsubscribe = global.subscribe("mousedown", (e) => {
+      mouseDown(e);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const mouseDown = (e) => {
     targetElement = e.target;
-    const { key } = targetElement.dataset;
-    if (key) {
-      // eslint-disable-next-line no-debugger
-      // debugger
-      console.log(key)
+    componentKey = targetElement.dataset.componentKey;
+    if (componentKey) {
       isMove = true;
-      global.setSelectComponent(key * 1);
+      global.setSelectComponent(componentKey * 1);
       global.runListeners("setUpdate");
       // 计算点击元素的位置
       const { offsetLeft, offsetTop } = canvasWrapRef.current.parentNode;
@@ -58,14 +69,14 @@ function CanvasContent(props) {
       const { clientX, clientY } = e;
       const x = clientX - offsetLeft - mouseDownX;
       const y = clientY - offsetTop - mouseDownY;
-      // 移动画布元素
-      targetElement.style.left = x + "px";
-      targetElement.style.top = y + "px";
       // 修改组件数据
       const component =global.getSelectComponent();
       component.style.left = x;
       component.style.top = y;
       global.modify(component);
+      // 发布订阅，通知组件
+      global.runListeners(componentKey)
+
     }
   };
 
@@ -85,7 +96,7 @@ function CanvasContent(props) {
       (component) => component.type === type
     );
     if (!FindComponent) {
-      // message.error("没有找到要渲染的组件");
+      message.error("没有找到要渲染的组件");
       return <Fragment></Fragment>;
     }
     return <FindComponent componentKey={key} key={key} />;
@@ -98,6 +109,10 @@ function CanvasContent(props) {
       // onMouseOut={mouseOut}
       ref={canvasWrapRef}
     >
+      {/* 选中元素框 */}
+      <CanvasSelectElement />
+      {/* {renderSelectElement()} */}
+      {/* 组件 */}
       {componentList.map((component) => renderComponent(component))}
     </div>
   );

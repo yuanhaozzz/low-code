@@ -1,5 +1,7 @@
 
 
+import React from 'react'
+
 
 export interface Style {
     position?: string;
@@ -24,7 +26,7 @@ export interface ModifyGlobal {
 export interface Component{
     key: number;
     type: string;
-    style: Style
+    style
     event: Event
     animation: Animation
 }
@@ -51,7 +53,7 @@ export interface GlobalDeclear{
     delete: (key: number) => void;
     clear: () => void;
     modify: (component: Component) => void;
-    find: (key: number) => void;
+    find: (key: number) => Component;
     findIndex: (key: number) => void;
     setSelectComponent: (key: number) => void;
     getSelectComponent: () => Component;

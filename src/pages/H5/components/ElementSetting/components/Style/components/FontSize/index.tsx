@@ -15,8 +15,17 @@ function FontSize(props: IProps) {
 
   const change = (e) => {
     const value = e.target.value;
-    update('fontSize', value + 'px');
+    if (value >= 0) {
+      update('fontSize', value + 'px');
+    }
   };
+
+  const blur = (e) => {
+    const value = e.target.value;
+    if (value <= 12) {
+      update('fontSize', 12 + 'px');
+    }
+  }
 
   const increase = () => {
     update('fontSize', parseInt(fontSize) + 2  + 'px');
@@ -31,15 +40,16 @@ function FontSize(props: IProps) {
   };
 
   return (
-    <div className="style-font-size flex-space-between">
+    <div className="line style-font-size flex-space-between">
       <h3>字号</h3>
       <div className="font-size-right flex-start">
         <div className="right">
           {/* 输入框 */}
           <input
-            value={parseInt(style.fontSize)}
+            value={parseInt(style.fontSize) || 0}
             name="fontsize"
             onChange={change}
+            onBlur={blur}
             autoComplete="off"
           />
           <span className="right-input-background">px</span>

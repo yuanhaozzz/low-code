@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 import "./style.scss";
 
-import Grid from "../Grid/index";
-import RenderComponent from "src/components/RenderComponent/index";
+import Grid from "./components/Grid";
+import RenderComponent from "src/pages/H5/components/Canvas/components/RenderComponent/index";
 
 function Canvas() {
   return (

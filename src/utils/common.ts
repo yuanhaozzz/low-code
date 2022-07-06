@@ -68,6 +68,9 @@ export const deleteFieldIsUndefined = (data = {}) => {
 };
 
 export const deepCopy = (data, hash = new WeakMap()) => {
+  if (!data) {
+    return undefined
+  }
   if(typeof data !== 'object' || data === null){
         throw new TypeError('传入参数不是对象')
     }
@@ -99,4 +102,19 @@ export const deepCopy = (data, hash = new WeakMap()) => {
       } 
    }); 
   return newData;
+}
+
+export const findElementProperty = (element,property) => {
+   let currentElement = element
+    while(currentElement!== null) {
+      if (currentElement[property]) {
+        return currentElement[property]
+      }
+        currentElement = currentElement.parentNode
+        if (currentElement.id === 'root') {
+            console.log(currentElement.id)
+            break
+        }
+    }
+    return undefined
 }

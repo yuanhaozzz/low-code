@@ -14,10 +14,6 @@ import ElementSetting from "./components/ElementSetting/index";
 function H5() {
   const forceUpdate = useForceUpdate();
   const globalData = useGlobalData();
-
-  useEffect(() => {
-    initEvent();
-  }, []);
   
   useLayoutEffect(() => {
     // 订阅根组件刷新
@@ -29,20 +25,20 @@ function H5() {
     };
   }, []);
 
+  const mouseMove = (e: React.MouseEvent) => {
+    globalData.runListeners("mousemove", e);
+  }
 
-  const initEvent = () => {
-    // 全局鼠标事件触发后、发布订阅
-    document.body.addEventListener("mousemove", (e) => {
-      globalData.runListeners("mousemove", e);
-    });
+  const mouseDown = (e: React.MouseEvent) => {
+    globalData.runListeners("mousedown", e);
+  }
 
-    document.body.addEventListener("mouseup", (e) => {
-      globalData.runListeners("mouseup", e);
-    });
-  };
+  const mouseUp = (e: React.MouseEvent) => {
+    globalData.runListeners("mouseup", e);
+  }
 
   return (
-    <div className="h5-wrapper">
+    <div className="h5-wrapper" onMouseMove={mouseMove} onMouseDown={mouseDown} onMouseUp={mouseUp}>
       <GlobalContext.Provider value={globalData}>
         {/* 顶部导航 */}
         <Header />

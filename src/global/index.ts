@@ -20,15 +20,11 @@ class global {
     this.listeners = {};
     // 选中的组件
      this.selectComponent = null;
-    // // 鼠标移动
-    // this.mouseMove = {
-    //   clientX: 0,
-    //   clientY: 0,
-    // };
   }
 
   // 添加订阅
   subscribe(key: string, callback: (e) => (e)=> void) {
+    console.log(key, this.listeners[key])
     if (this.listeners[key]) {
       this.listeners[key].push(callback);
     } else {
@@ -50,7 +46,7 @@ class global {
   add(component: Component) {
     // 生成唯一key
     component.key = Math.random();
-    this.globalData.componentList.push(component);
+    this.globalData.componentList.push(deepCopy(component));
     this.setSelectComponent(component.key)
   }
 
@@ -95,7 +91,7 @@ class global {
   }
 
   getSelectComponent() {
-    return deepCopy(this.selectComponent || {});
+    return deepCopy(this.selectComponent);
   }
 
   clearSelectComponent() {

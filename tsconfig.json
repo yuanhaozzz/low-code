@@ -12,6 +12,8 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "esModuleInterop": true,   
+    "esModuleInterop": true,  
+    "moduleResolution": "node",
+
   }
 }
