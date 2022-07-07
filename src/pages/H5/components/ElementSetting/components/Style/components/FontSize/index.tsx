@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import "./style.scss";
 
-import { fontSizeList } from "src/constants/style";
+// import { fontSizeList } from "src/constants/style";
 
 interface IProps {
   update: (key: string, value: string) => void;
-  style
+  style;
 }
 
 function FontSize(props: IProps) {
   const { update, style } = props;
-  const fontSize = style.fontSize
+  const fontSize = style.fontSize;
 
   const change = (e) => {
     const value = e.target.value;
     if (value >= 0) {
-      update('fontSize', value + 'px');
+      update("fontSize", value + "px");
     }
   };
 
   const blur = (e) => {
     const value = e.target.value;
     if (value <= 12) {
-      update('fontSize', 12 + 'px');
+      update("fontSize", 12 + "px");
     }
-  }
+  };
 
   const increase = () => {
-    update('fontSize', parseInt(fontSize) + 2  + 'px');
+    update("fontSize", parseInt(fontSize) + 2 + "px");
   };
 
   const reduce = () => {
-    const size = parseInt(fontSize)
-    if (size <=12) {
-      return
+    const size = parseInt(fontSize);
+    if (size <= 12) {
+      return;
     }
-    update('fontSize', parseInt(fontSize) - 2  + 'px');
+    update("fontSize", parseInt(fontSize) - 2 + "px");
   };
 
   return (

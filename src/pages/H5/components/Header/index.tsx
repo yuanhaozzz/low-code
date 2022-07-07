@@ -1,4 +1,4 @@
-import React, { Component, useContext, memo } from "react";
+import React, { useContext, memo } from "react";
 
 import { GlobalContext } from "src/global/globalCommon";
 import { jsonText } from "src/constants/json";

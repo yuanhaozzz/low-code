@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 
 import "./style.scss";
 import { GlobalContext } from "src/global/globalCommon";
@@ -8,15 +8,15 @@ import RenderComponent from "src/pages/H5/components/Canvas/components/RenderCom
 
 function Canvas() {
   const global = useContext(GlobalContext);
-  const canvasRef = useRef(null)
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    const {offsetLeft, offsetTop} = canvasRef.current
+    const { offsetLeft, offsetTop } = canvasRef.current;
     global.setCanvasOffset({
       left: offsetLeft,
-      top: offsetTop
-    })
-  }, []) 
+      top: offsetTop,
+    });
+  }, []);
   return (
     <div className="h5-canvas-wrapper flex-center">
       <div className="h5-canvas-container">

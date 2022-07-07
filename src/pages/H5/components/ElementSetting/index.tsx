@@ -86,9 +86,9 @@ function ElementSetting() {
   };
 
   const close = () => {
-    global.clearSelectComponent()
-    forceUpdate()
-  }
+    global.clearSelectComponent();
+    forceUpdate();
+  };
 
   const renderTop = () => {
     return (
@@ -97,7 +97,7 @@ function ElementSetting() {
         onMouseDown={mouseDown}
       >
         <h1 className="">组件设置</h1>
-        <i className="icon-close" onClick={() => close()}/>
+        <i className="icon-close" onClick={() => close()} />
       </div>
     );
   };
@@ -117,7 +117,7 @@ function ElementSetting() {
       </ul>
     );
   };
-  
+
   if (!selectComponent || !selectComponent.type) {
     return <Fragment></Fragment>;
   }
