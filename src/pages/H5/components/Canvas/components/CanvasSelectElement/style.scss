@@ -1,7 +1,40 @@
+.rotate-line{
+    position: absolute;
+    display: none;
+    .rotate-line-item{
+        width: 2px;
+        height: 600px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: #CAEA11;
+    }
+   
+    .rotate-1{
+        transform: rotate(0deg);
+    }
+    .rotate-2{
+        transform: rotate(45deg);
+    }
+    .rotate-3{
+        transform: rotate(90deg);
+    }
+    .rotate-4{
+        transform: rotate(135deg);
+    }
+}
+.rotate-line-show{
+    display: block;
+}
+
 .canvas-select-element{
     position: absolute;
     top: 100px;
     left: 50px;
+    z-index: 10;
     .canvas-select-rotate{
         cursor: url('/assets/image/icon-rotate-cursor.ico') 10 10,pointer;
         position: absolute;

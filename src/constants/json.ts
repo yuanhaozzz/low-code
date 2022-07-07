@@ -15,6 +15,8 @@ export const jsonText = {
     textAlign: 'left',
     padding: '5px',
     boxSizing: 'border-box',
+    transform: 'rotate(0deg)',
+    zIndex: 2,
     ...defaultStyle,
   },
   animation: {},

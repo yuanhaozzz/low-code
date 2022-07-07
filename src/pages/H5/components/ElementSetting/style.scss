@@ -1,7 +1,7 @@
 .element-setting-wrapper{
     position: absolute;
     width: 260px;
-    height: 100%;
+    height: calc(100% - 65px);
     background-color: #fff;
     top: 60px;
     right: 180px;

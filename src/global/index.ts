@@ -2,6 +2,7 @@ import {
   GlobalDataType,
   Listeners,
   Component,
+  CanvasOffset,
   MouseMove,
   ModifyGlobal
 } from "src/constants/type";
@@ -11,6 +12,7 @@ class global {
   globalData: GlobalDataType;
   listeners: Listeners;
   selectComponent: Component;
+  canvasOffset: CanvasOffset;
   // mouseMove: MouseMove;
   constructor() {
     this.globalData = {
@@ -20,6 +22,11 @@ class global {
     this.listeners = {};
     // 选中的组件
      this.selectComponent = null;
+    // 画布offset
+    this.canvasOffset = {
+      left: 0,
+      top:0
+    }
   }
 
   // 添加订阅
@@ -101,6 +108,14 @@ class global {
   modifySelectComponent(property: ModifyGlobal) {
     this.selectComponent = {...this.selectComponent, ...property}
     this.modify(this.selectComponent)
+  }
+
+  getCanvasOffset() {
+    return this.canvasOffset
+  }
+
+  setCanvasOffset(offset) {
+    this.canvasOffset = {...this.canvasOffset, ...offset}
   }
 }
 

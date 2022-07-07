@@ -31,6 +31,11 @@ export interface Component{
     animation: Animation
 }
 
+export interface CanvasOffset{
+    left: number;
+    top: number;
+}
+
 export interface GlobalDataType {
     componentList: Component[]
 }
@@ -61,4 +66,6 @@ export interface GlobalDeclear{
     getMouseMove: () => MouseMove;
     modifySelectComponent: (property) => void;
     clearSelectComponent: () => void;
+    setCanvasOffset: (offset) => void;
+    getCanvasOffset: () => CanvasOffset
   }
