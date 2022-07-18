@@ -1,8 +1,8 @@
-import React, {  useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "src/global/globalCommon";
 
-interface Props{
-  componentKey: number
+interface Props {
+  componentKey: number;
 }
 
 function Text(props: Props) {
@@ -16,7 +16,7 @@ function Text(props: Props) {
   const [, update] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = global.subscribe(data.key + '', () => {
+    const unsubscribe = global.subscribe(data.key + "", () => {
       forceUpdate();
     });
     return () => {
@@ -28,8 +28,23 @@ function Text(props: Props) {
     update((prev) => prev + 1);
   };
 
+  const doubleClick = (e) => {
+    const el = e.target;
+    el.setAttribute("contenteditable", "true");
+    global.addDoubleClickEl(el);
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  };
+
   return (
-    <div className="common-text-wrapper common-component-hover" style={style} data-component-key={key}>
+    <div
+      className="common-component common-text-wrapper common-component-hover"
+      style={style}
+      data-component-key={key}
+      onDoubleClick={doubleClick}
+    >
       双击编辑文本...
     </div>
   );

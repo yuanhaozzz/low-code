@@ -7,6 +7,7 @@ const defaultStyle = {
 
 export const jsonText = {
   type: "1",
+  isMoving: false,
   style: {
     width: '150px',
     height: '31px',
@@ -19,6 +20,8 @@ export const jsonText = {
     zIndex: 2,
     ...defaultStyle,
   },
+  alternateLeft: defaultStyle.left,
+  alternateTop: defaultStyle.top,
   animation: {},
   event: {},
 };

@@ -33,3 +33,14 @@
   .common-component-hover:hover{
     outline: 1px dashed #a3afb7;
   }
+  
+  .reference-line{
+    width: 1px;
+    height: 700px;
+    background-color: #e67798;
+    position: absolute;
+  }
+
+  .common-component{
+    outline: none;
+  }

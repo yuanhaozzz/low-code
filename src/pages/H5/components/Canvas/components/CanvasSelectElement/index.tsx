@@ -74,8 +74,6 @@ const CanvasSelectElement = () => {
         }
         // 移动元素 赋值给选中框
         setSelectComponent(global.getSelectComponent());
-        // 参考线
-        referenceLine(e);
       }
     });
     return () => {
@@ -98,16 +96,6 @@ const CanvasSelectElement = () => {
       unsubscribe();
     };
   }, []);
-
-  /**
-   * @description 画参考线
-   * @param e 时间对象
-   * @returns
-   */
-  const referenceLine = (e: MouseEvent) => {
-    console.log(3);
-    // const { clientX, clientY } = e
-  };
 
   const handleSelectBoxType = (e: MouseEvent) => {
     const { clientX, clientY } = e;

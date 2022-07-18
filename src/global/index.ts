@@ -4,15 +4,16 @@ import {
   Component,
   CanvasOffset,
   MouseMove,
-  ModifyGlobal
+  ModifyGlobal,
 } from "src/constants/type";
-import {deepCopy} from 'src/utils/common'
+import { deepCopy } from "src/utils/common";
 
 class global {
   globalData: GlobalDataType;
   listeners: Listeners;
   selectComponent: Component;
-  canvasOffset: CanvasOffset;
+  canvasInfo: CanvasOffset;
+  doubleClickEl: HTMLDivElement[];
   // mouseMove: MouseMove;
   constructor() {
     this.globalData = {
@@ -21,17 +22,21 @@ class global {
     // 收集订阅
     this.listeners = {};
     // 选中的组件
-     this.selectComponent = null;
+    this.selectComponent = null;
     // 画布offset
-    this.canvasOffset = {
-      left: 0,
-      top:0
-    }
+    this.canvasInfo = {
+      offsetLeft: 0,
+      offsetTop: 0,
+      width: 0,
+      height: 0,
+    };
+    // 双击输入历史元素
+    this.doubleClickEl = [];
   }
 
   // 添加订阅
-  subscribe(key: string, callback: (e) => (e)=> void) {
-    console.log(key, this.listeners[key])
+  subscribe(key: string, callback: (e) => (e) => void) {
+    console.log(key, this.listeners[key]);
     if (this.listeners[key]) {
       this.listeners[key].push(callback);
     } else {
@@ -50,11 +55,15 @@ class global {
     }
   };
 
+  getComponentList() {
+    return this.globalData.componentList;
+  }
+
   add(component: Component) {
     // 生成唯一key
     component.key = Math.random();
     this.globalData.componentList.push(deepCopy(component));
-    this.setSelectComponent(component.key)
+    this.setSelectComponent(component.key);
   }
 
   delete(key: number) {
@@ -102,20 +111,29 @@ class global {
   }
 
   clearSelectComponent() {
-    this.selectComponent = null
+    this.selectComponent = null;
   }
 
   modifySelectComponent(property: ModifyGlobal) {
-    this.selectComponent = {...this.selectComponent, ...property}
-    this.modify(this.selectComponent)
+    this.selectComponent = { ...this.selectComponent, ...property };
+    this.modify(this.selectComponent);
   }
 
-  getCanvasOffset() {
-    return this.canvasOffset
+  getCanvasInfo() {
+    return this.canvasInfo;
   }
 
-  setCanvasOffset(offset) {
-    this.canvasOffset = {...this.canvasOffset, ...offset}
+  setCanvasInfo(info) {
+    this.canvasInfo = { ...this.canvasInfo, ...info };
+  }
+
+  addDoubleClickEl(el: HTMLDivElement) {
+    this.doubleClickEl.push(el);
+  }
+
+  clearDoubleClickEL() {
+    this.doubleClickEl.forEach((el) => el.removeAttribute("contenteditable"));
+    this.doubleClickEl = [];
   }
 }
 

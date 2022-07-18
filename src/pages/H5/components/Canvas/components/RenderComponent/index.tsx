@@ -4,18 +4,31 @@ import { message } from "antd";
 import "./style.scss";
 import { GlobalContext } from "src/global/globalCommon";
 import { components } from "src/constants/components";
+import {
+  createReferenceLineElement,
+  removeReferenceLineElement,
+  sleep,
+} from "src/utils/common";
 
-import CanvasSelectElement from '../CanvasSelectElement/index'
-
-let isMove = false;
 let targetElement = null;
 let mouseDownX = 0;
 let mouseDownY = 0;
-let componentKey = undefined
+let componentKey = undefined;
+let referencePoint = [];
+// let isLeftLine: HTMLDivElement | null = null;
 function CanvasContent() {
   const global = useContext(GlobalContext);
   const { componentList } = global.globalData;
-  const canvasWrapRef = useRef(null);
+
+  // 订阅鼠标按下
+  useEffect(() => {
+    const unsubscribe = global.subscribe("mousedown", (e) => {
+      mouseDown(e);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   // 订阅鼠标移动
   useEffect(() => {
@@ -37,25 +50,24 @@ function CanvasContent() {
     };
   }, []);
 
-  // 订阅鼠标按下
-  useEffect(() => {
-    const unsubscribe = global.subscribe("mousedown", (e) => {
-      mouseDown(e);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
   const mouseDown = (e) => {
     targetElement = e.target;
     componentKey = targetElement.dataset.componentKey;
+    const contenteditable = targetElement.getAttribute("contenteditable");
+    // 点击时 如果不是输入框，则清除历史双击元素的contenteditable属性
+    if (!contenteditable) {
+      global.clearDoubleClickEL();
+    }
     if (componentKey) {
-      isMove = true;
-      global.setSelectComponent(componentKey * 1);
+      const component = global.find(componentKey * 1);
+      // 如果点击时为可输入则不可移动
+      if (!contenteditable) {
+        component.isMoving = true;
+      }
+      global.modify(component);
       global.runListeners("setUpdate");
       // 计算点击元素的位置
-      const { offsetLeft, offsetTop } = canvasWrapRef.current.parentNode;
+      const { offsetLeft, offsetTop } = global.getCanvasInfo();
       const { clientX, clientY } = e;
       mouseDownX = clientX - offsetLeft - targetElement.offsetLeft;
       mouseDownY = clientY - offsetTop - targetElement.offsetTop;
@@ -63,29 +75,152 @@ function CanvasContent() {
   };
 
   const mouseMove = (e) => {
-    if (isMove) {
-      // 需要获取offsetLeft，需要找到第一个定位元素
-      const { offsetLeft, offsetTop } = canvasWrapRef.current.parentNode;
+    const component = global.getSelectComponent();
+    // 组件标记为可移动时，才能移动
+    if (component && component.isMoving) {
+      // 获取容器offset
+      const { offsetLeft, offsetTop } = global.getCanvasInfo();
       const { clientX, clientY } = e;
       const x = clientX - offsetLeft - mouseDownX;
       const y = clientY - offsetTop - mouseDownY;
-      // 修改组件数据
-      const component =global.getSelectComponent();
+
+      component.alternateLeft = x;
+      component.alternateTop = y;
       component.style.left = x;
       component.style.top = y;
-      global.modify(component);
-      // 发布订阅，通知组件
-      global.runListeners(componentKey)
-
+      handleElementMove(component);
     }
+  };
+  /**
+   * @description 处理元素移动 + 参考线
+   * @params {*} component 当前组件
+   */
+  const handleElementMove = (component) => {
+    const { top, left, width: elWidth, height: elHeight } = component.style;
+    const width = parseInt(elWidth);
+    const height = parseInt(elHeight);
+    // 获取canvas 宽高
+    const { width: canvasWidth, height: canvasHeight } = global.getCanvasInfo();
+    // 画布内 元素、边界 点的位置
+    referencePoint = [
+      // 边界 0 0
+      { h: 0, v: 0 },
+      // 画布宽高
+      { h: canvasWidth, v: canvasHeight },
+      // 画布中心点
+      { h: canvasWidth / 2, v: canvasHeight / 2 },
+    ];
+    global.getComponentList().forEach((component) => {
+      const { left, top, width, height } = component.style;
+      if (componentKey * 1 !== component.key) {
+        referencePoint.push(
+          ...[
+            {
+              h: left,
+              v: top,
+            },
+            {
+              h: left + parseInt(width),
+              v: top + parseInt(height),
+            },
+          ]
+        );
+      }
+    });
+    // 记录 是否在点的范围内
+    const scope = [];
+    const scopeNum = 5;
+    referencePoint.forEach((point) => {
+      // h 水平 v 垂直
+      const { h, v } = point;
+      // 左
+      if (h - scopeNum < left && h + scopeNum > left) {
+        scope[0] = h;
+      }
+      // 右
+      if (h - scopeNum < left + width && h + scopeNum > left + width) {
+        scope[1] = h;
+      }
+      // 上
+      if (v - scopeNum < top && v + scopeNum > top) {
+        scope[2] = v;
+      }
+      // 下
+      if (v - scopeNum < top + height && v + scopeNum > top + height) {
+        scope[3] = v;
+      }
+      // 中
+      if (v - scopeNum < top + height / 2 && v + scopeNum > top + height / 2) {
+        scope[4] = v;
+      }
+      if (h - scopeNum < left + width / 2 && h + scopeNum > left + width / 2) {
+        scope[5] = h;
+      }
+    });
+    // assist-lines
+    if (scope.length > 0) {
+      console.log(scope.length);
+      for (let i = 0; i < scope.length; i++) {
+        const num = scope[i];
+        const index = i;
+        // 创建参考线
+        createReferenceLineElement(index, num, component.style);
+        if (num !== undefined) {
+          // 吸住效果
+          switch (index) {
+            case 0: {
+              component.style.left = num;
+              break;
+            }
+            case 1: {
+              component.style.left = num - width;
+              break;
+            }
+            case 2: {
+              component.style.top = num;
+              break;
+            }
+            case 3: {
+              component.style.top = num - height;
+              break;
+            }
+            case 4: {
+              component.style.top = num - height / 2;
+              break;
+            }
+            case 5: {
+              component.style.left = num - width / 2;
+              break;
+            }
+          }
+        }
+      }
+    } else {
+      // 删除参考线
+      removeReferenceLineElement();
+      component.style.left = component.alternateLeft;
+      component.style.top = component.alternateTop;
+    }
+    // 修改组件属性
+    global.modify(component);
+    // 发布订阅，通知组件
+    global.runListeners(componentKey);
   };
 
   const mouseUp = () => {
-    isMove = false;
+    const component = global.getSelectComponent();
+    if (component && component.isMoving) {
+      // 设置组件 标记为不能移动
+      component.isMoving = false;
+      // 删除参考线
+      removeReferenceLine();
+      global.modify(component);
+    }
   };
 
-  const mouseOut = () => {
-    isMove = false;
+  const removeReferenceLine = () => {
+    const lineAll = document.querySelectorAll(".reference-line");
+    lineAll.forEach((line) => line.remove());
   };
 
   const renderComponent = (component) => {
@@ -103,16 +238,8 @@ function CanvasContent() {
   };
 
   return (
-    <div
-      className="canvas-content-wrapper"
-      onMouseDown={mouseDown}
-      // onMouseOut={mouseOut}
-      ref={canvasWrapRef}
-    >
-      {/* 选中元素框 */}
-      <CanvasSelectElement />
-      {/* {renderSelectElement()} */}
-      {/* 组件 */}
+    <div className="canvas-content-wrapper" onMouseDown={mouseDown}>
+      {/* 组件列表 */}
       {componentList.map((component) => renderComponent(component))}
     </div>
   );
