@@ -5,7 +5,7 @@ import { SketchPicker } from "react-color";
 import "./style.scss";
 
 interface Props {
-  update: (key: string, value: string) => void;
+  update: (style) => void;
   style;
 }
 const Color = (props: Props) => {
@@ -19,12 +19,12 @@ const Color = (props: Props) => {
   };
 
   return (
-    <div className="line style-color flex-space-between">
+    <section className="line style-color flex-space-between">
       {colorSelect && (
         <div className="style-color-select">
           <SketchPicker
             color={color}
-            onChangeComplete={(color) => update("color", color.hex)}
+            onChangeComplete={(color) => update({ color: color.hex })}
           />
         </div>
       )}
@@ -36,7 +36,7 @@ const Color = (props: Props) => {
       >
         <div className="right-color" style={{ backgroundColor: color }}></div>
       </div>
-    </div>
+    </section>
   );
 };
 

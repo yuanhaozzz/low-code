@@ -21,6 +21,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-debugger": "off"
+        "no-debugger": "off",
+        "no-prototype-builtins": "off"
     }
 }

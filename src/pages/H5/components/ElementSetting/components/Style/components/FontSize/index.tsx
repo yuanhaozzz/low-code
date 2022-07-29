@@ -5,7 +5,7 @@ import "./style.scss";
 // import { fontSizeList } from "src/constants/style";
 
 interface IProps {
-  update: (key: string, value: string) => void;
+  update: (style) => void;
   style;
 }
 
@@ -16,19 +16,19 @@ function FontSize(props: IProps) {
   const change = (e) => {
     const value = e.target.value;
     if (value >= 0) {
-      update("fontSize", value + "px");
+      update({ fontSize: value + "px" });
     }
   };
 
   const blur = (e) => {
     const value = e.target.value;
     if (value <= 12) {
-      update("fontSize", 12 + "px");
+      update({ fontSize: 12 + "px" });
     }
   };
 
   const increase = () => {
-    update("fontSize", parseInt(fontSize) + 2 + "px");
+    update({ fontSize: parseInt(fontSize) + 2 + "px" });
   };
 
   const reduce = () => {
@@ -36,11 +36,11 @@ function FontSize(props: IProps) {
     if (size <= 12) {
       return;
     }
-    update("fontSize", parseInt(fontSize) - 2 + "px");
+    update({ fontSize: parseInt(fontSize) - 2 + "px" });
   };
 
   return (
-    <div className="line style-font-size flex-space-between">
+    <section className="line style-font-size flex-space-between">
       <h3>字号</h3>
       <div className="font-size-right flex-start">
         <div className="right">
@@ -64,7 +64,7 @@ function FontSize(props: IProps) {
           onClick={() => reduce()}
         ></div>
       </div>
-    </div>
+    </section>
   );
 }
 

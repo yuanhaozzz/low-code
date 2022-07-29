@@ -22,6 +22,7 @@ export interface ModifyGlobal {
 export interface Component {
   key: number;
   isMoving: boolean;
+  text: string;
   alternateLeft: number;
   alternateTop: number;
   type: string;
@@ -71,4 +72,6 @@ export interface GlobalDeclear {
   getComponentList: () => Component[];
   addDoubleClickEl: (el: HTMLDivElement) => void;
   clearDoubleClickEL: () => void;
+  modifyStyle: () => void;
+  findCurrentElementStyle: () => string;
 }

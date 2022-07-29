@@ -7,12 +7,32 @@ function CloseControl() {
 
   useEffect(() => {
     const unsubscribe = global.subscribe("mousedown", (e) => {
-      console.log(e);
+      mouseDown(e);
     });
     return () => {
       unsubscribe();
     };
   }, []);
+
+  const mouseDown = (e) => {
+    // const targetElement = e.target;
+    // 点击时 如果不是输入框，则清除历史双击元素的contenteditable属性
+    // closeDoubleInput(targetElement);
+  };
+
+  const closeDoubleInput = (targetElement) => {
+    const select = global.getSelectComponent();
+    if (select) {
+      const contenteditable = targetElement.getAttribute("contenteditable");
+      if (!contenteditable) {
+        select.text = targetElement.firstChild.nodeValue;
+        // 更新描述对象
+        global.modify(select);
+        // 清除输入框属性
+        global.clearDoubleClickEL();
+      }
+    }
+  };
 
   return <Fragment></Fragment>;
 }

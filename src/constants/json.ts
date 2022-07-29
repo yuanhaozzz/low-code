@@ -1,4 +1,4 @@
-import {} from './type'
+import {} from "./type";
 const defaultStyle = {
   position: "absolute",
   left: 0,
@@ -8,15 +8,16 @@ const defaultStyle = {
 export const jsonText = {
   type: "1",
   isMoving: false,
+  text: "",
   style: {
-    width: '150px',
-    height: '31px',
+    width: "150px",
+    height: "31px",
     fontSize: "14px",
-    color: '#000',
-    textAlign: 'left',
-    padding: '5px',
-    boxSizing: 'border-box',
-    transform: 'rotate(0deg)',
+    color: "#000",
+    textAlign: "left",
+    padding: "5px",
+    boxSizing: "border-box",
+    transform: "rotate(0deg)",
     zIndex: 2,
     ...defaultStyle,
   },

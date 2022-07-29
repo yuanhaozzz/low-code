@@ -88,6 +88,10 @@ class global {
     }
   }
 
+  modifyStyle(style) {
+    this.selectComponent.style = { ...this.selectComponent.style, ...style };
+  }
+
   find(key: number) {
     const { componentList } = this.globalData;
     // 查找
@@ -134,6 +138,16 @@ class global {
   clearDoubleClickEL() {
     this.doubleClickEl.forEach((el) => el.removeAttribute("contenteditable"));
     this.doubleClickEl = [];
+  }
+
+  /**
+   * @description 在选中组件中查找样式
+   * @param {string} key 样式key
+   */
+  findCurrentElementStyle(key) {
+    console.log(this.selectComponent);
+    const { style } = this.selectComponent;
+    return style[key];
   }
 }
 

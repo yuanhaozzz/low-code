@@ -6,6 +6,7 @@ import { GlobalContext } from "src/global/globalCommon";
 import Grid from "./components/Grid";
 import RenderComponent from "src/pages/H5/components/Canvas/components/RenderComponent/index";
 import CanvasSelectElement from "./components/CanvasSelectElement/index";
+import CloseControl from "./components/CloseControl/index";
 
 function Canvas() {
   const global = useContext(GlobalContext);
@@ -35,6 +36,8 @@ function Canvas() {
           <CanvasSelectElement />
           {/* 组件 */}
           <RenderComponent />
+          {/* 关闭控制器 */}
+          <CloseControl />
         </div>
       </div>
     </div>

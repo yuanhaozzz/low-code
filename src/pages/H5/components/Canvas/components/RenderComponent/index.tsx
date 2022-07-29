@@ -54,10 +54,6 @@ function CanvasContent() {
     targetElement = e.target;
     componentKey = targetElement.dataset.componentKey;
     const contenteditable = targetElement.getAttribute("contenteditable");
-    // 点击时 如果不是输入框，则清除历史双击元素的contenteditable属性
-    if (!contenteditable) {
-      global.clearDoubleClickEL();
-    }
     if (componentKey) {
       const component = global.find(componentKey * 1);
       // 如果点击时为可输入则不可移动
