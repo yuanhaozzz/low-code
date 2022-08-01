@@ -263,23 +263,72 @@ const CanvasSelectElement = () => {
     );
   };
 
+  const { left, top, transform, width, height } = selectComponent.style;
+  const selectElementStyle = {
+    left: left + parseInt(width) / 2,
+    top: top + parseInt(height) / 2,
+    transform,
+    // width,
+    // height,
+  };
   return (
-    <section
-      className="canvas-select-element"
-      style={{ ...selectComponent.style }}
-    >
+    <section className="canvas-select-element" style={selectElementStyle}>
       {/* 旋转 */}
       <div
         className="icon-rotate canvas-select-rotate"
         data-select-box={"rotate"}
+        style={{
+          left: `0px`,
+          top: `-${parseInt(height) <= 60 ? 60 : parseInt(height)}px`,
+        }}
       ></div>
       {/* 旋转参考线 */}
       {renderRotateLine()}
+      {/* 上 */}
+      <div
+        className="border"
+        style={{
+          width: `${parseInt(width)}px`,
+          left: `-${parseInt(width) / 2}px`,
+          top: `-${parseInt(height) / 2}px`,
+        }}
+      ></div>
+      {/* 下 */}
+      <div
+        className="border"
+        style={{
+          width: `${parseInt(width)}px`,
+          left: `-${parseInt(width) / 2}px`,
+          top: `${parseInt(height) / 2}px`,
+        }}
+      ></div>
+      {/* 左 */}
+      <div
+        className="border"
+        style={{
+          height: `${parseInt(height)}px`,
+          left: `-${parseInt(width) / 2}px`,
+          top: `-${parseInt(height) / 2}px`,
+        }}
+      ></div>
+      {/* 右 */}
+      <div
+        className="border"
+        style={{
+          height: `${parseInt(height)}px`,
+          left: `${parseInt(width) / 2}px`,
+          top: `-${parseInt(height) / 2}px`,
+        }}
+      ></div>
       <div className="canvas-line-left line">
         {/* 左中 */}
         <div
           className="canvas-line-circle left-center"
           data-select-box={"leftCenter"}
+          style={{
+            left: `-${parseInt(width) / 2 + 5}px`,
+            top: `0px`,
+          }}
         ></div>
       </div>
       <div className="canvas-line-right line">
@@ -287,6 +336,10 @@ const CanvasSelectElement = () => {
         <div
           className="canvas-line-circle right-center"
           data-select-box={"rightCenter"}
+          style={{
+            left: `${parseInt(width) / 2}px`,
+            top: `0px`,
+          }}
         ></div>
       </div>
       <div className="canvas-line-bottom line">
@@ -294,16 +347,28 @@ const CanvasSelectElement = () => {
         <div
           className="canvas-line-circle left-bottom"
           data-select-box={"leftBottom"}
+          style={{
+            left: `-${parseInt(width) / 2 + 5}px`,
+            top: `${parseInt(height) / 2 - 5}px`,
+          }}
         ></div>
         {/* 中下 */}
         <div
           className="canvas-line-circle center-bottom"
           data-select-box={"centerBottom"}
+          style={{
+            left: `0px`,
+            top: `${parseInt(height) / 2 - 5}px`,
+          }}
         ></div>
         {/* 右下 */}
         <div
           className="canvas-line-circle right-bottom"
           data-select-box={"rightBottom"}
+          style={{
+            left: `${parseInt(width) / 2 - 5}px`,
+            top: `${parseInt(height) / 2 - 5}px`,
+          }}
         ></div>
       </div>
       <div className="canvas-line-top line">
@@ -311,16 +376,28 @@ const CanvasSelectElement = () => {
         <div
           className="canvas-line-circle left-top"
           data-select-box={"leftTop"}
+          style={{
+            left: `-${parseInt(width) / 2 + 5}px`,
+            top: `-${parseInt(height) / 2 + 5}px`,
+          }}
         ></div>
         {/* 中上 */}
         <div
           className="canvas-line-circle center-top"
           data-select-box={"centerTop"}
+          style={{
+            left: `0px`,
+            top: `-${parseInt(height) / 2 + 5}px`,
+          }}
         ></div>
         {/* 右上 */}
         <div
           className="canvas-line-circle right-top"
           data-select-box={"rightTop"}
+          style={{
+            left: `${parseInt(width) / 2 - 5}px`,
+            top: `-${parseInt(height) / 2 + 5}px`,
+          }}
         ></div>
       </div>
     </section>

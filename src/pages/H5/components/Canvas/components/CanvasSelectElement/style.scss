@@ -38,7 +38,7 @@
     .canvas-select-rotate{
         cursor: url('/assets/image/icon-rotate-cursor.ico') 10 10,pointer;
         position: absolute;
-        top: -41px;
+        top: -241px;
         left: 50%;
         margin-left: -12px;
         width: 24px;
@@ -50,6 +50,12 @@
         border-radius: 50%;
         line-height: 24px;
     }
+    .border{
+        background-color: #07a1ef;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+    }
     .line{
         position: absolute;
         height: 5px;
@@ -60,26 +66,28 @@
         top: 0;
         left: 0;
         width: 100%;
-        background: url('/assets/image/line.png') repeat-x top;
+        // background: url('/assets/image/line.png') repeat-x top;
         background-size: 20px 1px;
+        z-index: 999;
     }
     .canvas-line-bottom{
         bottom: 0;
         left: 0;
         width: 100%;
-        background: url('/assets/image/line.png') repeat-x bottom;
+        // background: url('/assets/image/line.png') repeat-x bottom;
+        position: relative;
     }
     .canvas-line-left{
         bottom: 0;
         left: 0;
         height: 100%;
-        background: url('/assets/image/line.png') repeat-y left;
+        // background: url('/assets/image/line.png') repeat-y left;
     }
     .canvas-line-right{
         bottom: 0;
         right: 0;
         height: 100%;
-        background: url('/assets/image/line.png') repeat-y right;
+        // background: url('/assets/image/line.png') repeat-y right;
     }
     .left-top {
         left: -5px;
