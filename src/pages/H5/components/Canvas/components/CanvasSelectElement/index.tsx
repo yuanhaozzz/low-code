@@ -16,6 +16,7 @@ let isMove = false;
 let selectBoxType = "";
 let componentKey = undefined;
 let rotateStep = 0;
+let selectElement: any = {};
 const client = {
   startX: 0,
   startY: 0,
@@ -45,6 +46,7 @@ const CanvasSelectElement = () => {
       }
       if (key) {
         componentKey = key;
+        selectElement = el;
       }
       // 选中框
       if (selectBox) {
@@ -263,7 +265,9 @@ const CanvasSelectElement = () => {
     );
   };
 
-  const { left, top, transform, width, height } = selectComponent.style;
+  const { left, top, transform } = selectComponent.style;
+  const width = window.getComputedStyle(selectElement)?.width;
+  const height = window.getComputedStyle(selectElement)?.height;
   const selectElementStyle = {
     left: left + parseInt(width) / 2,
     top: top + parseInt(height) / 2,

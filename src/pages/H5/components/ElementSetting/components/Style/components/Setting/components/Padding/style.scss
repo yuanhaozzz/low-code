@@ -1,0 +1,43 @@
+
+.padding-wrapper{
+    padding: 8px 16px 0px;
+    margin: 10px 0;
+    .padding-content-title{
+        .left{
+            color: #666;
+            font-size: 14px;
+        }
+        .right{
+            position: relative;
+            cursor: pointer;
+            img{
+                width: 15px;
+            }
+        }
+    }
+    .padding-content-list{
+        flex-wrap: wrap;
+       li{
+        margin-bottom: 10px;
+        span{
+            display: block;
+            width: 40px;
+            text-align: center;
+            height: 36px;
+            line-height: 36px;
+            background: #f7f8f9;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            border: 1px solid #ccd5db;
+            border-right: none;
+        }
+        input{
+            width: 60px;    
+            border: 1px solid #e6ebed;
+            border-radius: 4px;
+            line-height: 32px;
+            border-left: none;
+        }
+       }
+    }
+}

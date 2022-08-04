@@ -1,12 +1,52 @@
+.element-setting-style-wrapper::-webkit-scrollbar {
+    display: none;
+}
 .element-setting-style-wrapper{
     font-size: 14px;
+    height: calc(100% - 84px);
+    overflow-y: scroll;
     .style-top-container{
-        padding: 16px;
+        padding: 16px 0;
+        .top{
+            padding: 0 16px;
+            margin-bottom: 10px;
+        }
         h3{
             font-size: 14px;
         }
     }
     .line{
         margin: 15px 0;
+    }
+    .style-list{
+        padding-right: 20px;
+        .left{
+            color: #111;
+            font-size: 14px;
+        }
+        .right{
+            width: 10px;
+            height: 10px;
+            border: 2px solid #999;
+            transform: rotate(45deg);
+            transform-origin: center;
+            border-left: 2px solid transparent;
+            border-bottom: 2px solid transparent;
+            transition: transform .3s;
+        }
+        .action{
+            transform: rotate(135deg);
+        }
+    }
+    .style-list:hover{
+        background: #1261ff;
+        .left{
+            color: #fff;
+        }
+        .right{
+            border: 2px solid #fff;
+            border-left: 2px solid #1261ff;
+            border-bottom: 2px solid #1261ff;
+        }
     }
 }

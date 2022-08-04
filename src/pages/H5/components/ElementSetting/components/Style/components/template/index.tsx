@@ -1,8 +1,10 @@
 import React from "react";
 
+import "./style.scss";
 interface Props {
-  update: (key: string, value: string) => void;
+  update: (style) => void;
   style;
+  global?;
 }
 const Color = (props: Props) => {
   // const { update, style } = props;

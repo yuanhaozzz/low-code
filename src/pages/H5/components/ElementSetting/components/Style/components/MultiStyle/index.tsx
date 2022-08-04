@@ -1,9 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { SketchPicker } from "react-color";
 
 import "./style.scss";
 import { specialStyleList } from "../../constants";
 
-import { SketchPicker } from "react-color";
+import Tips from "src/components/Tips/index";
 
 interface IProps {
   update: (style) => void;
@@ -29,22 +30,6 @@ const styleList = [
     key: "textDecoration",
     style: ["underline"],
   },
-  // {
-  //   name: "对齐方式",
-  //   className: "icon-center",
-  // },
-  // {
-  //   name: "背景颜色",
-  //   className: "icon-background",
-  // },
-  // {
-  //   name: "行间距",
-  //   className: "icon-light",
-  // },
-  // {
-  //   name: "字间距",
-  //   className: "icon-font",
-  // },
 ];
 
 function MultiStyle(props: IProps) {
@@ -110,11 +95,39 @@ function MultiStyle(props: IProps) {
   };
 
   const handleCenter = () => {
-    selectCenter(!center);
+    display(0);
+  };
+
+  const display = (index) => {
+    const target = [
+      {
+        value: center,
+        set: selectCenter,
+      },
+      {
+        value: backgroundColorSelect,
+        set: setBackgroundColorSelect,
+      },
+      {
+        value: showLineHeight,
+        set: openLineHeight,
+      },
+      {
+        value: showLetterSpacing,
+        set: openLetterSpacing,
+      },
+    ];
+    target.map((target, i) => {
+      if (index === i) {
+        target.set(!target.value);
+      } else {
+        target.set(false);
+      }
+    });
   };
 
   const handleBackground = () => {
-    setBackgroundColorSelect(!backgroundColorSelect);
+    display(1);
   };
 
   const selectTextAlign = (value) => {
@@ -161,17 +174,6 @@ function MultiStyle(props: IProps) {
         break;
       }
     }
-  };
-
-  const letterSpacingBlur = (e) => {
-    let { value } = e.target;
-    if (value >= 100) {
-      value = 100;
-    }
-    if (value <= 0) {
-      value = 0;
-    }
-    setLineHeight(value);
   };
 
   const renderComplex = () => {
@@ -296,60 +298,34 @@ function MultiStyle(props: IProps) {
           onClick={() => click(item)}
           className="flex-center item"
         >
-          {/* tips */}
-          <div className="tips">
-            {item.name}
-            <b className="tips-bottom-arrow"></b>
-          </div>
+          <Tips title={item.name} />
           {/* 图标 */}
           <i className={item.className}></i>
         </div>
       ))}
       {/* 居中icon */}
       <div onClick={() => handleCenter()} className="flex-center item">
-        {/* tips */}
-        <div className="tips">
-          居中
-          <b className="tips-bottom-arrow"></b>
-        </div>
+        <Tips title="居中" />
         {/* 图标 */}
         <i className={center ? select : unselect}></i>
       </div>
       {/* 背景颜色icon */}
       <div onClick={() => handleBackground()} className="flex-center item">
-        {/* tips */}
-        <div className="tips">
-          背景颜色
-          <b className="tips-bottom-arrow"></b>
-        </div>
+        <Tips title="背景颜色" />
         {/* 图标 */}
         <i className="icon-background"></i>
         {/* 颜色展示 */}
         <div className="background-line" style={{ backgroundColor }}></div>
       </div>
       {/* 行间距icon */}
-      <div
-        onClick={() => openLineHeight(!showLineHeight)}
-        className="flex-center item"
-      >
-        {/* tips */}
-        <div className="tips">
-          行间距
-          <b className="tips-bottom-arrow"></b>
-        </div>
+      <div onClick={() => display(2)} className="flex-center item">
+        <Tips title="行间距" />
         {/* 图标 */}
         <i className="icon-light"></i>
       </div>
       {/* 字间距icon */}
-      <div
-        onClick={() => openLetterSpacing(!showLetterSpacing)}
-        className="flex-center item"
-      >
-        {/* tips */}
-        <div className="tips">
-          字间距
-          <b className="tips-bottom-arrow"></b>
-        </div>
+      <div onClick={() => display(3)} className="flex-center item">
+        <Tips title="字间距" />
         {/* 图标 */}
         <i className="icon-font"></i>
       </div>

@@ -1,0 +1,27 @@
+.style-opacity{
+    user-select: none;
+    .style-opacity-right{
+        border: 1px solid #e6ebed;
+        padding: 0 10px;
+        box-sizing: border-box;
+        position: relative;
+        input{
+            padding: 0 0 0 6px;
+            width: 120px;
+            height: 32px;
+            border-radius: 4px;
+            line-height: 32px;
+            padding-right: 30px;
+            cursor: col-resize;
+            border: none;
+            outline: #007aff;
+        }
+        span{
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+    }
+}
