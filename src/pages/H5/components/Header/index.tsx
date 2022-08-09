@@ -12,6 +12,7 @@ function Header() {
     global.add(json);
     global.runListeners("rootUpdate");
     global.runListeners("setUpdate");
+    global.runListeners("canvasSelectElement");
   };
 
   const publish = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Tips from "src/components/Tips/index";
 
@@ -39,11 +39,13 @@ interface Props {
   canvasInfo?;
 }
 const Position = (props: Props) => {
-  const { update, style, canvasInfo } = props;
+  const { update, style, canvasInfo, global } = props;
+  // const [, forceUpdate] = useState(0);
   const left = parseInt(style.left);
   const top = parseInt(style.top);
   const width = parseInt(style.width);
   const height = parseInt(style.height);
+  console.log(left, "left-------------");
 
   const handlePosition = (item) => {
     switch (item.id) {
@@ -55,7 +57,7 @@ const Position = (props: Props) => {
       }
       case 2: {
         update({
-          left: canvasInfo.width - width + "px",
+          left: canvasInfo.width - width,
         });
         break;
       }
@@ -67,14 +69,14 @@ const Position = (props: Props) => {
       }
       case 4: {
         update({
-          top: canvasInfo.height - height + "px",
+          top: canvasInfo.height - height,
         });
         break;
       }
       case 5: {
         update({
-          left: canvasInfo.width / 2 - width / 2 + "px",
-          top: canvasInfo.height / 2 - height / 2 + "px",
+          left: canvasInfo.width / 2 - width / 2,
+          top: canvasInfo.height / 2 - height / 2,
         });
         break;
       }
@@ -98,13 +100,13 @@ const Position = (props: Props) => {
       }
       case "left": {
         update({
-          left: value + "px",
+          left: value * 1,
         });
         break;
       }
       case "top": {
         update({
-          top: value + "px",
+          top: value * 1,
         });
         break;
       }

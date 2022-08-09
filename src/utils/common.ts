@@ -112,11 +112,22 @@ export const findElementProperty = (element, property) => {
     }
     currentElement = currentElement.parentNode;
     if (currentElement.id === "root") {
-      console.log(currentElement.id);
       break;
     }
   }
-  return undefined;
+};
+
+export const findElementId = (element, value) => {
+  let currentElement = element;
+  while (currentElement !== null) {
+    if (currentElement.id === value) {
+      return true;
+    }
+    currentElement = currentElement.parentNode;
+    if (currentElement.id === "root") {
+      break;
+    }
+  }
 };
 
 export const sleep = (time: number) => {

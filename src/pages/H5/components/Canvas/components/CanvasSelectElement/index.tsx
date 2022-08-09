@@ -4,6 +4,7 @@ import React, {
   useState,
   useLayoutEffect,
   useRef,
+  useEffect,
 } from "react";
 import ReactDOM from "react-dom";
 
@@ -11,6 +12,7 @@ import "./style.scss";
 import { GlobalContext } from "src/global/globalCommon";
 import { Component } from "src/constants/type";
 import { rotateLineNumber } from "src/constants";
+import { findElementId } from "src/utils/common";
 
 let isMove = false;
 let selectBoxType = "";
@@ -30,6 +32,18 @@ const CanvasSelectElement = () => {
   );
 
   const rotateRef = useRef(null);
+
+  useEffect(() => {
+    const unsubscribe = global.subscribe("canvasSelectElement", (e) => {
+      const select = global.getSelectComponent();
+      componentKey = select.key;
+      selectElement = {};
+      setSelectComponent(select);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   useLayoutEffect(() => {
     const unsubscribe = global.subscribe("mousedown", (e) => {
@@ -58,6 +72,9 @@ const CanvasSelectElement = () => {
         if (selectBox === "rotate") {
           rotateRef.current.classList.add("rotate-line-show");
         }
+      }
+      if (findElementId(el, "show-setting")) {
+        component = global.getSelectComponent();
       }
       // 控制选中框 显示隐藏
       setSelectComponent(component);
@@ -218,13 +235,10 @@ const CanvasSelectElement = () => {
     }
     global.modify(currentComponent);
     global.runListeners(componentKey);
+    global.runListeners("settingPosition");
     client.startX = clientX;
     client.startY = clientY;
   };
-
-  if (!selectComponent) {
-    return <Fragment></Fragment>;
-  }
 
   /**
    * @description 渲染参考线
@@ -265,16 +279,28 @@ const CanvasSelectElement = () => {
     );
   };
 
-  const { left, top, transform } = selectComponent.style;
-  const width = window.getComputedStyle(selectElement)?.width;
-  const height = window.getComputedStyle(selectElement)?.height;
-  const selectElementStyle = {
-    left: left + parseInt(width) / 2,
-    top: top + parseInt(height) / 2,
+  if (!selectComponent) {
+    return <Fragment></Fragment>;
+  }
+  const {
+    left,
+    top,
     transform,
-    // width,
-    // height,
+    width: elWidth,
+    height: elHeight,
+  } = selectComponent.style;
+  let width = parseInt(elWidth);
+  let height = parseInt(elHeight);
+  if (Object.keys(selectElement).length > 0) {
+    width = parseInt(window.getComputedStyle(selectElement)?.width);
+    height = parseInt(window.getComputedStyle(selectElement)?.height);
+  }
+  const selectElementStyle = {
+    left: left + width / 2,
+    top: top + height / 2,
+    transform,
   };
+
   return (
     <section className="canvas-select-element" style={selectElementStyle}>
       {/* 旋转 */}
@@ -283,7 +309,7 @@ const CanvasSelectElement = () => {
         data-select-box={"rotate"}
         style={{
           left: `0px`,
-          top: `-${parseInt(height) <= 60 ? 60 : parseInt(height)}px`,
+          top: `-${height <= 60 ? 60 : height}px`,
         }}
       ></div>
       {/* 旋转参考线 */}
@@ -292,36 +318,36 @@ const CanvasSelectElement = () => {
       <div
         className="border"
         style={{
-          width: `${parseInt(width)}px`,
-          left: `-${parseInt(width) / 2}px`,
-          top: `-${parseInt(height) / 2}px`,
+          width: `${width}px`,
+          left: `-${width / 2}px`,
+          top: `-${height / 2}px`,
         }}
       ></div>
       {/* 下 */}
       <div
         className="border"
         style={{
-          width: `${parseInt(width)}px`,
-          left: `-${parseInt(width) / 2}px`,
-          top: `${parseInt(height) / 2}px`,
+          width: `${width}px`,
+          left: `-${width / 2}px`,
+          top: `${height / 2}px`,
         }}
       ></div>
       {/* 左 */}
       <div
         className="border"
         style={{
-          height: `${parseInt(height)}px`,
-          left: `-${parseInt(width) / 2}px`,
-          top: `-${parseInt(height) / 2}px`,
+          height: `${height}px`,
+          left: `-${width / 2}px`,
+          top: `-${height / 2}px`,
         }}
       ></div>
       {/* 右 */}
       <div
         className="border"
         style={{
-          height: `${parseInt(height)}px`,
-          left: `${parseInt(width) / 2}px`,
-          top: `-${parseInt(height) / 2}px`,
+          height: `${height}px`,
+          left: `${width / 2}px`,
+          top: `-${height / 2}px`,
         }}
       ></div>
       <div className="canvas-line-left line">
@@ -330,7 +356,7 @@ const CanvasSelectElement = () => {
           className="canvas-line-circle left-center"
           data-select-box={"leftCenter"}
           style={{
-            left: `-${parseInt(width) / 2 + 5}px`,
+            left: `-${width / 2 + 5}px`,
             top: `0px`,
           }}
         ></div>
@@ -341,7 +367,7 @@ const CanvasSelectElement = () => {
           className="canvas-line-circle right-center"
           data-select-box={"rightCenter"}
           style={{
-            left: `${parseInt(width) / 2}px`,
+            left: `${width / 2}px`,
             top: `0px`,
           }}
         ></div>
@@ -352,8 +378,8 @@ const CanvasSelectElement = () => {
           className="canvas-line-circle left-bottom"
           data-select-box={"leftBottom"}
           style={{
-            left: `-${parseInt(width) / 2 + 5}px`,
-            top: `${parseInt(height) / 2 - 5}px`,
+            left: `-${width / 2 + 5}px`,
+            top: `${height / 2 - 5}px`,
           }}
         ></div>
         {/* 中下 */}
@@ -362,7 +388,7 @@ const CanvasSelectElement = () => {
           data-select-box={"centerBottom"}
           style={{
             left: `0px`,
-            top: `${parseInt(height) / 2 - 5}px`,
+            top: `${height / 2 - 5}px`,
           }}
         ></div>
         {/* 右下 */}
@@ -370,8 +396,8 @@ const CanvasSelectElement = () => {
           className="canvas-line-circle right-bottom"
           data-select-box={"rightBottom"}
           style={{
-            left: `${parseInt(width) / 2 - 5}px`,
-            top: `${parseInt(height) / 2 - 5}px`,
+            left: `${width / 2 - 5}px`,
+            top: `${height / 2 - 5}px`,
           }}
         ></div>
       </div>
@@ -381,8 +407,8 @@ const CanvasSelectElement = () => {
           className="canvas-line-circle left-top"
           data-select-box={"leftTop"}
           style={{
-            left: `-${parseInt(width) / 2 + 5}px`,
-            top: `-${parseInt(height) / 2 + 5}px`,
+            left: `-${width / 2 + 5}px`,
+            top: `-${height / 2 + 5}px`,
           }}
         ></div>
         {/* 中上 */}
@@ -391,7 +417,7 @@ const CanvasSelectElement = () => {
           data-select-box={"centerTop"}
           style={{
             left: `0px`,
-            top: `-${parseInt(height) / 2 + 5}px`,
+            top: `-${height / 2 + 5}px`,
           }}
         ></div>
         {/* 右上 */}
@@ -399,8 +425,8 @@ const CanvasSelectElement = () => {
           className="canvas-line-circle right-top"
           data-select-box={"rightTop"}
           style={{
-            left: `${parseInt(width) / 2 - 5}px`,
-            top: `-${parseInt(height) / 2 + 5}px`,
+            left: `${width / 2 - 5}px`,
+            top: `-${height / 2 + 5}px`,
           }}
         ></div>
       </div>

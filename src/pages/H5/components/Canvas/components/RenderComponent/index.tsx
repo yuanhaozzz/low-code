@@ -62,6 +62,7 @@ function CanvasContent() {
       }
       global.modify(component);
       global.runListeners("setUpdate");
+      global.runListeners("canvasSelectElement");
       // 计算点击元素的位置
       const { offsetLeft, offsetTop } = global.getCanvasInfo();
       const { clientX, clientY } = e;
@@ -153,7 +154,6 @@ function CanvasContent() {
         scope[5] = h;
       }
     });
-    // assist-lines
     if (scope.length > 0) {
       console.log(scope.length);
       for (let i = 0; i < scope.length; i++) {
@@ -199,8 +199,10 @@ function CanvasContent() {
     }
     // 修改组件属性
     global.modify(component);
+
     // 发布订阅，通知组件
     global.runListeners(componentKey);
+    global.runListeners("settingPosition");
   };
 
   const mouseUp = () => {

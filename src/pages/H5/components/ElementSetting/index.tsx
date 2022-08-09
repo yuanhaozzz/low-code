@@ -123,7 +123,7 @@ function ElementSetting() {
   }
 
   return (
-    <section className="element-setting-wrapper" ref={setRef}>
+    <section className="element-setting-wrapper" id="show-setting" ref={setRef}>
       {selectComponent.type === "1" && (
         <Fragment>
           {/* 导航标题 */}

@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
 
 import { deepCopy } from "src/utils/common";
 import "./style.scss";
@@ -22,6 +22,15 @@ function Style() {
   const currentComponent = global.getSelectComponent();
   const [, forceUpdate] = useState(0);
 
+  useEffect(() => {
+    const unsubscribe = global.subscribe("settingPosition", () => {
+      forceUpdate((prev) => prev + 1);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const update = (styleMap = {}) => {
     // 更新样式
     const component = deepCopy(global.getSelectComponent());
@@ -32,6 +41,7 @@ function Style() {
     }
     global.modify(component);
     global.runListeners("setUpdate");
+    global.runListeners("canvasSelectElement");
     // 已订阅的组件 更新操作
     global.runListeners(component.key + "");
   };

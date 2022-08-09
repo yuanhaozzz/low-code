@@ -9,7 +9,6 @@ const inputEl = null;
 function Text(props: Props) {
   const global = useContext(GlobalContext);
   const { componentKey } = props;
-
   const data = global.find(componentKey);
 
   const { style, key } = data;
