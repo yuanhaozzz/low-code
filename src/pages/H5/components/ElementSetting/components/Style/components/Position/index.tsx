@@ -45,7 +45,6 @@ const Position = (props: Props) => {
   const top = parseInt(style.top);
   const width = parseInt(style.width);
   const height = parseInt(style.height);
-  console.log(left, "left-------------");
 
   const handlePosition = (item) => {
     switch (item.id) {

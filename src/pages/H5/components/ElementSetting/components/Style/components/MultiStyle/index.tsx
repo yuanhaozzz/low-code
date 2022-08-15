@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { SketchPicker } from "react-color";
 
 import "./style.scss";
@@ -210,12 +211,19 @@ function MultiStyle(props: IProps) {
       return <Fragment></Fragment>;
     }
     return (
-      <div className="style-color-select">
-        <SketchPicker
-          color={backgroundColor}
-          onChangeComplete={(color) => update({ backgroundColor: color.hex })}
-        />
-      </div>
+      <Fragment>
+        {createPortal(
+          <div className="style-background-color-select">
+            <SketchPicker
+              color={backgroundColor}
+              onChangeComplete={(color) =>
+                update({ backgroundColor: color.hex })
+              }
+            />
+          </div>,
+          document.querySelector(".element-setting-wrapper")
+        )}
+      </Fragment>
     );
   };
 

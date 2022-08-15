@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { createPortal } from "react-dom";
 
 import "./style.scss";
 import { selectList, colorBlock } from "./constants";
@@ -110,14 +111,18 @@ const Border = (props: Props) => {
               ></li>
             ))}
           </ul>
-          {colorSelect && (
-            <div className="style-color-select">
-              <SketchPicker
-                color={borderColor}
-                onChangeComplete={(color) => update({ borderColor: color.hex })}
-              />
-            </div>
-          )}
+          {colorSelect &&
+            createPortal(
+              <div className="style-border-color-select">
+                <SketchPicker
+                  color={borderColor}
+                  onChangeComplete={(color) =>
+                    update({ borderColor: color.hex })
+                  }
+                />
+              </div>,
+              document.querySelector(".element-setting-wrapper")
+            )}
         </div>
       </div>
     );

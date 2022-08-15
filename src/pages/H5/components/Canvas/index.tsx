@@ -22,7 +22,6 @@ function Canvas() {
       width: parseInt(width),
       height: parseInt(height),
     });
-    console.log(global.getCanvasInfo(), "global");
   }, []);
   return (
     <div className="h5-canvas-wrapper flex-center">

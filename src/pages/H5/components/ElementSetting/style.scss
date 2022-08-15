@@ -8,6 +8,31 @@
     z-index: 1041;
     box-shadow: 0 0 16px rgb(0 0 0 / 16%);
     user-select: none;
+    // overflow-y: scroll;
+    .style-color-select{
+        position: absolute;
+        left: -151px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        .sketch-picker{
+            width: 258px !important;
+        }
+    }
+    .style-background-color-select{
+        position: absolute;
+        left: -75px;
+        top: 55%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+    .style-border-color-select{
+        position: absolute;
+        left: -145px;
+        top: 65%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
     .element-setting-top{
         cursor: move;
         height: 48px;

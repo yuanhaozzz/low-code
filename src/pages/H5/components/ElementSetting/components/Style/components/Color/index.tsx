@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 
 import { SketchPicker } from "react-color";
 
@@ -20,14 +21,16 @@ const Color = (props: Props) => {
 
   return (
     <section className="line style-color flex-space-between">
-      {colorSelect && (
-        <div className="style-color-select">
-          <SketchPicker
-            color={color}
-            onChangeComplete={(color) => update({ color: color.hex })}
-          />
-        </div>
-      )}
+      {colorSelect &&
+        createPortal(
+          <div className="style-color-select">
+            <SketchPicker
+              color={color}
+              onChangeComplete={(color) => update({ color: color.hex })}
+            />
+          </div>,
+          document.querySelector(".element-setting-wrapper")
+        )}
 
       <h3 className="left">文本颜色</h3>
       <div

@@ -15,16 +15,16 @@ function Grid() {
     const ctx = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
-    for (let i = 0; i < width; i += 63) {
-      ctx.lineWidth = 4;
+    for (let i = 0; i < width; i += 47) {
+      ctx.lineWidth = 2;
       ctx.strokeStyle = "#fafafa";
       ctx.beginPath();
       ctx.moveTo(i, 0);
       ctx.lineTo(i, height);
       ctx.stroke();
     }
-    for (let i = 0; i < height; i += 63) {
-      ctx.lineWidth = 4;
+    for (let i = 0; i < height; i += 48) {
+      ctx.lineWidth = 2;
       ctx.strokeStyle = "#fafafa";
       ctx.beginPath();
       ctx.moveTo(0, i);

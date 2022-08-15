@@ -28,30 +28,21 @@ function ElementSetting() {
   const selectComponent = global.getSelectComponent();
 
   useEffect(() => {
-    const unsubscribe = global.subscribe("setUpdate", () => {
+    global.subscribe("setUpdate", () => {
       forceUpdate();
     });
-    return () => {
-      unsubscribe();
-    };
   }, []);
 
   useEffect(() => {
-    const unsubscribe = global.subscribe("mousemove", (e) => {
+    global.subscribe("mousemove", (e) => {
       move(e);
     });
-    return () => {
-      unsubscribe();
-    };
   }, []);
 
   useEffect(() => {
-    const unsubscribe = global.subscribe("mouseup", () => {
+    global.subscribe("mouseup", () => {
       mouseUp();
     });
-    return () => {
-      unsubscribe();
-    };
   }, []);
 
   const forceUpdate = () => {
@@ -87,6 +78,7 @@ function ElementSetting() {
 
   const close = () => {
     global.clearSelectComponent();
+    global.runListeners("canvasSelectElement");
     forceUpdate();
   };
 

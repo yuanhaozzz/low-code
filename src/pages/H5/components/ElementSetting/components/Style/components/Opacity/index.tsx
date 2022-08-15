@@ -16,30 +16,21 @@ const Opacity = (props: Props) => {
   const [, forceUpdate] = useState(0);
   number = style.opacity || 0;
   useEffect(() => {
-    const unsubscribe = global.subscribe("mousedown", (e) => {
+    global.subscribe("mousedown", (e) => {
       mouseDown(e);
     });
-    return () => {
-      unsubscribe();
-    };
   }, []);
 
   useEffect(() => {
-    const unsubscribe = global.subscribe("mousemove", (e) => {
+    global.subscribe("mousemove", (e) => {
       mouseMove(e);
     });
-    return () => {
-      unsubscribe();
-    };
   }, []);
 
   useEffect(() => {
-    const unsubscribe = global.subscribe("mouseup", () => {
+    global.subscribe("mouseup", () => {
       mouseUp();
     });
-    return () => {
-      unsubscribe();
-    };
   }, []);
 
   const toFixed = (str, num = 4) => {
@@ -48,7 +39,6 @@ const Opacity = (props: Props) => {
 
   const mouseDown = (e) => {
     const { clientX, target } = e;
-    console.log();
     if (target.dataset.settingOpacity === "settingOpacity") {
       moveX = clientX;
       isMove = true;
@@ -60,8 +50,6 @@ const Opacity = (props: Props) => {
       return;
     }
     const { clientX } = e;
-    // console.log(clientX, "clientX");
-    // console.log(moveX, "moveX");
     if (clientX >= moveX) {
       if (number <= 0) {
         number = 0;
@@ -69,7 +57,6 @@ const Opacity = (props: Props) => {
         return;
       }
       number = (number * 100 - 0.01 * 100) / 100;
-      console.log(number);
     }
 
     if (moveX >= clientX) {
@@ -79,7 +66,6 @@ const Opacity = (props: Props) => {
         return;
       }
       number = (number * 100 + 0.01 * 100) / 100;
-      console.log("左");
     }
     update({ opacity: toFixed(number + "") });
     moveX = clientX;
@@ -87,7 +73,6 @@ const Opacity = (props: Props) => {
 
   const mouseUp = () => {
     isMove = false;
-    console.log(isMove);
   };
 
   const mouseOver = (e) => {

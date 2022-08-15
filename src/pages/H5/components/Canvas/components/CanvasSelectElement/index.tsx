@@ -36,7 +36,7 @@ const CanvasSelectElement = () => {
   useEffect(() => {
     const unsubscribe = global.subscribe("canvasSelectElement", (e) => {
       const select = global.getSelectComponent();
-      componentKey = select.key;
+      componentKey = select?.key;
       selectElement = {};
       setSelectComponent(select);
     });
@@ -216,7 +216,6 @@ const CanvasSelectElement = () => {
         for (let i = 0; i < rotateLineNumber.length; i++) {
           const num = rotateLineNumber[i];
           if (num - 10 < Math.abs(rotate) && num + 10 > Math.abs(rotate)) {
-            console.log("范围内");
             // 在范围内
             isWithinRange = true;
             rangeNumber = rotate > 0 ? num : -num;

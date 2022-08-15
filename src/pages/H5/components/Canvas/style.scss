@@ -1,5 +1,7 @@
 .h5-canvas-wrapper{
     height: calc(100% - 60px);
+    overflow-y: scroll;
+    padding: 190px 0 30px;
     .h5-canvas-container{
         .h5-canvas-header{
             height: 60px;

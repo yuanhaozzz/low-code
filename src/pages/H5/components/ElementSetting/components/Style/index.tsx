@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import React, { Fragment, useContext, useState, useEffect } from "react";
 
 import { deepCopy } from "src/utils/common";

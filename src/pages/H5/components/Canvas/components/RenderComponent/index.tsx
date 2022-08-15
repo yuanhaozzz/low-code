@@ -155,7 +155,6 @@ function CanvasContent() {
       }
     });
     if (scope.length > 0) {
-      console.log(scope.length);
       for (let i = 0; i < scope.length; i++) {
         const num = scope[i];
         const index = i;
@@ -207,6 +206,7 @@ function CanvasContent() {
 
   const mouseUp = () => {
     const component = global.getSelectComponent();
+    console.log(component, "---------------------");
     if (component && component.isMoving) {
       // 设置组件 标记为不能移动
       component.isMoving = false;

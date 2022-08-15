@@ -53,6 +53,7 @@ export interface MouseMove {
 
 export interface GlobalDeclear {
   globalData: GlobalDataType;
+  listeners: any;
   add: (component: Component) => void;
   subscribe: (key: string, callback: (e) => void) => () => void;
   runListeners: (key: string) => void;
