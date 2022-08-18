@@ -1,9 +1,4 @@
 import {} from "./type";
-const defaultStyle = {
-  position: "absolute",
-  left: 0,
-  top: 220,
-};
 
 export const jsonText = {
   type: "1",
@@ -24,10 +19,25 @@ export const jsonText = {
     boxSizing: "border-box",
     transform: "rotate(0deg)",
     zIndex: 2,
-    ...defaultStyle,
+    position: "absolute",
+    left: 0,
+    top: 220,
   },
-  alternateLeft: defaultStyle.left,
-  alternateTop: defaultStyle.top,
-  animation: {},
+  alternateLeft: 0,
+  alternateTop: 220,
+  animation: [
+    {
+      id: 1,
+      title: "淡入",
+      name: "fadeIn",
+      duration: 1,
+      delay: 0,
+      timingFunction: "linear",
+      direction: "normal",
+      count: 1,
+      mode: "both",
+      playState: "running",
+    },
+  ],
   event: {},
 };

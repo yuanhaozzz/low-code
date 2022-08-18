@@ -1,0 +1,92 @@
+// ------------start 进入----------------
+// 淡入
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+// 向右移
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translate3d(-200px,0,0);
+    }
+    
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// 向左移
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translate3d(200px,0,0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// 向上移
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0,200px,0);
+    }
+    
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// ------------end 进入----------------
+
+
+// ------------start 强调----------------
+// 摇摆
+@keyframes wobble {
+    0% {
+        transform: none;
+    }
+    15% {
+        transform: translate3d(-25%,0,0) rotate(-5deg);
+    }
+    30% {
+        transform: translate3d(20%,0,0) rotate(3deg);
+    }
+    45% {
+        transform: translate3d(-15%,0,0) rotate(-3deg);
+    }
+    60% {
+        transform: translate3d(10%,0,0) rotate(2deg);
+    }
+    75% {
+        transform: translate3d(-5%,0,0) rotate(-1deg);
+    }
+    100% {
+        transform: none;
+    }
+}
+// ------------end 强调----------------
+
+// ------------start 退出----------------
+// 淡出
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    
+    100% {
+        opacity: 0;
+    }
+}
+// ------------end 退出----------------
+

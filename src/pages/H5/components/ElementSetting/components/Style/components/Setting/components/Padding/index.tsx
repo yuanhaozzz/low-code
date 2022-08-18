@@ -96,7 +96,7 @@ const Padding = (props: Props) => {
             className="right flex-center open-top-tips"
             onClick={() => setLock(!lock)}
           >
-            <Tips title={lock ? "开启统一设置" : "关闭统一设置"} />
+            <Tips title={lock ? "统一" : "单独"} />
             {/* 开关锁 */}
             {lock ? <img src={OpenLock} /> : <img src={CloseLock} />}
           </div>

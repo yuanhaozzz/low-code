@@ -4,16 +4,16 @@ import {
   Component,
   CanvasOffset,
   MouseMove,
-  ModifyGlobal,
 } from "src/constants/type";
 import { deepCopy } from "src/utils/common";
 
 class global {
   globalData: GlobalDataType;
   listeners: Listeners;
-  selectComponent: Component;
+  selectComponent: any;
   canvasInfo: CanvasOffset;
   doubleClickEl: HTMLDivElement[];
+  test;
   // mouseMove: MouseMove;
   constructor() {
     this.globalData = {
@@ -32,6 +32,7 @@ class global {
     };
     // 双击输入历史元素
     this.doubleClickEl = [];
+    this.test = {};
   }
 
   // 添加订阅
@@ -59,13 +60,15 @@ class global {
     return this.globalData.componentList;
   }
 
+  // 添加组件
   add(component: Component) {
     // 生成唯一key
     component.key = Math.random();
-    this.globalData.componentList.push(deepCopy(component));
+    this.globalData.componentList.push(component);
     this.setSelectComponent(component.key);
   }
 
+  // 添加组件
   delete(key: number) {
     const { componentList } = this.globalData;
     const componentIndex = this.findIndex(key);
@@ -74,80 +77,129 @@ class global {
     }
   }
 
+  // 清空组件
   clear() {
     this.globalData.componentList = [];
   }
 
+  // 修改组件
   modify(component: Component) {
     this.selectComponent = component;
     const { key } = component;
     const { componentList } = this.globalData;
-    const componentIndex = this.findIndex(key);
-    if (componentIndex >= 0) {
-      componentList[componentIndex] = component;
-    }
+    this.globalData.componentList = componentList.map((item) => {
+      if (item.key === key) {
+        item = { ...item, ...component };
+      }
+      return item;
+    });
   }
 
-  modifyStyle(style) {
-    this.selectComponent.style = { ...this.selectComponent.style, ...style };
+  // 修改组件属性
+  modifyProperty(key, newProperty) {
+    this.globalData.componentList = this.globalData.componentList.map(
+      (item) => {
+        if (item.key === key) {
+          item = { ...item, ...newProperty };
+        }
+        return item;
+      }
+    );
+    console.log(this.globalData.componentList);
   }
 
+  // 查找组件
   find(key: number) {
     const { componentList } = this.globalData;
-    // 查找
     const component = componentList.find((component) => component.key === key);
     return component;
   }
 
+  // 查找组件下标
   findIndex(key: number) {
     const { componentList } = this.globalData;
-    // 下标
     const index = componentList.findIndex((component) => component.key === key);
     return index;
   }
 
+  // 修改组件样式
+  modifyStyle(style) {
+    this.selectComponent.style = { ...this.selectComponent.style, ...style };
+  }
+
+  // 添加组件动画
+  addAnimation(animation) {
+    const { id } = animation;
+    const animations = this.selectComponent.animation;
+    if (animations.find((item) => item.id === id)) {
+      return;
+    }
+    this.selectComponent.animation = [...animations, animation];
+  }
+
+  // 删除组件动画
+  deleteAnimation(index) {
+    this.selectComponent.animation.splice(index, 1);
+  }
+
+  // 修改组件动画
+  modifyAnimation(index, newAnimation) {
+    const old = this.selectComponent.animation[index];
+    this.selectComponent.animation[index] = { ...old, ...newAnimation };
+  }
+
+  // 查找组件动画
+  findAnimation(id) {
+    return this.selectComponent.animation.find((item) => item.id === id);
+  }
+
+  // 设置当前组件
   setSelectComponent(key: number) {
     this.selectComponent = this.find(key);
   }
 
+  // 获取当前组件
   getSelectComponent() {
     return deepCopy(this.selectComponent);
   }
 
+  // 清除当前组件
   clearSelectComponent() {
     this.selectComponent = null;
   }
 
-  modifySelectComponent(property: ModifyGlobal) {
+  // 修改当前组件
+  modifySelectComponent(property) {
     this.selectComponent = { ...this.selectComponent, ...property };
     this.modify(this.selectComponent);
   }
 
-  getCanvasInfo() {
-    return this.canvasInfo;
-  }
-
-  setCanvasInfo(info) {
-    this.canvasInfo = { ...this.canvasInfo, ...info };
-  }
-
-  addDoubleClickEl(el: HTMLDivElement) {
-    this.doubleClickEl.push(el);
-  }
-
-  clearDoubleClickEL() {
-    this.doubleClickEl.forEach((el) => el.removeAttribute("contenteditable"));
-    this.doubleClickEl = [];
-  }
-
-  /**
-   * @description 在选中组件中查找样式
-   * @param {string} key 样式key
-   */
+  // 查找当前组件样式
   findCurrentElementStyle(key) {
     console.log(this.selectComponent);
     const { style } = this.selectComponent;
     return style[key];
+  }
+
+  // 设置画布信息
+  setCanvasInfo(info) {
+    this.canvasInfo = { ...this.canvasInfo, ...info };
+  }
+
+  // 获取画布信息
+  getCanvasInfo() {
+    return this.canvasInfo;
+  }
+
+  // 存储双击元素
+  addDoubleClickEl(el: HTMLDivElement) {
+    this.doubleClickEl.push(el);
+  }
+
+  // 清空双击元素
+  clearDoubleClickEL() {
+    this.doubleClickEl.forEach((el) => el.removeAttribute("contenteditable"));
+    this.doubleClickEl = [];
   }
 }
 

@@ -1,20 +1,55 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { GlobalContext } from "src/global/globalCommon";
+import { playAnimation } from "src/utils/function";
 
 interface Props {
   componentKey: number;
+  index: number;
 }
 
 const inputEl = null;
+let animationIndex = 0;
+let playAnimationEntry = "";
 function Text(props: Props) {
   const global = useContext(GlobalContext);
-  const { componentKey } = props;
+  const { componentKey, index } = props;
   const data = global.find(componentKey);
 
   const { style, key } = data;
 
   const [, update] = useState(0);
+  const textRef = useRef(null);
 
+  // 添加组件元素，方便操作元素
+  useEffect(() => {
+    global.modifySelectComponent({ element: textRef.current });
+  }, []);
+
+  // 监听动画结束
+  useEffect(() => {
+    textRef.current.addEventListener("animationend", animationend);
+    return () => {
+      textRef.current.removeEventListener("animationend", animationend);
+    };
+  }, []);
+
+  // 监听动画开始
+  useEffect(() => {
+    textRef.current.addEventListener("animationstart", animationstart);
+    return () => {
+      textRef.current.removeEventListener("animationstart", animationstart);
+    };
+  }, []);
+
+  // 播放当前组件全部动画
+  useEffect(() => {
+    play();
+    global.subscribe(`previewAnimation${key}`, () => {
+      play();
+    });
+  }, []);
+
+  // 订阅后，当数据修改，强制刷新本组件
   useEffect(() => {
     const unsubscribe = global.subscribe(data.key + "", () => {
       forceUpdate();
@@ -23,6 +58,43 @@ function Text(props: Props) {
       unsubscribe();
     };
   }, []);
+
+  const play = () => {
+    const { animation } = global.getSelectComponent();
+    if (animation.length > 0) {
+      playAnimationEntry = "all";
+      playAnimation(animation[animationIndex], textRef.current);
+    }
+  };
+
+  const animationstart = () => {
+    if (playAnimationEntry === "all") {
+      const { animation } = global.getSelectComponent();
+      // 播放动画名字
+      const { animationName } = window.getComputedStyle(textRef.current);
+      // 预览动画名字
+      const currentName = animation[animationIndex].name;
+      // 停止连续播放
+      if (animationName !== currentName) {
+        animationIndex = 1000;
+      }
+    }
+  };
+
+  const animationend = () => {
+    const { animation } = global.getSelectComponent();
+    textRef.current.style.animation = "";
+    // 播放全部
+    if (playAnimationEntry === "all") {
+      if (animationIndex < animation.length - 1) {
+        animationIndex += 1;
+        playAnimation(animation[animationIndex], textRef.current);
+      } else {
+        animationIndex = 0;
+        playAnimationEntry = "";
+      }
+    }
+  };
 
   const forceUpdate = () => {
     update((prev) => prev + 1);
@@ -56,11 +128,12 @@ function Text(props: Props) {
 
   return (
     <div
-      className="common-component common-text-wrapper common-component-hover"
+      className={`common-component common-text-wrapper common-component-hover`}
       style={style}
       data-component-key={key}
       onDoubleClick={doubleClick}
       onBlur={blur}
+      ref={textRef}
     >
       双击编辑文本...
     </div>

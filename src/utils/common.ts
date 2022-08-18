@@ -74,14 +74,21 @@ export const deepCopy = (data, hash = new WeakMap()) => {
   if (typeof data !== "object" || data === null) {
     throw new TypeError("传入参数不是对象");
   }
+
   // 判断传入的待拷贝对象的引用是否存在于hash中
   if (hash.has(data)) {
     return hash.get(data);
   }
   const newData = {};
   const dataKeys = Object.keys(data);
-  dataKeys.forEach((value) => {
+  for (let i = 0; i < dataKeys.length; i++) {
+    const value = dataKeys[i];
     const currentDataValue = data[value];
+    // DOM对象忽略
+    if (currentDataValue?.nodeType >= 0) {
+      newData[value] = currentDataValue;
+      continue;
+    }
     // 基本数据类型的值和函数直接赋值拷贝
     if (typeof currentDataValue !== "object" || currentDataValue === null) {
       newData[value] = currentDataValue;
@@ -100,7 +107,7 @@ export const deepCopy = (data, hash = new WeakMap()) => {
       // 普通对象则递归赋值
       newData[value] = deepCopy(currentDataValue, hash);
     }
-  });
+  }
   return newData;
 };
 

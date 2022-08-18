@@ -221,7 +221,7 @@ function CanvasContent() {
     lineAll.forEach((line) => line.remove());
   };
 
-  const renderComponent = (component) => {
+  const renderComponent = (component, index) => {
     // 1 文本组件 2 图片组件
     const { type, key } = component;
 
@@ -232,13 +232,15 @@ function CanvasContent() {
       message.error("没有找到要渲染的组件");
       return <Fragment></Fragment>;
     }
-    return <FindComponent componentKey={key} key={key} />;
+    return <FindComponent componentKey={key} key={key} index={index} />;
   };
 
   return (
     <div className="canvas-content-wrapper" onMouseDown={mouseDown}>
       {/* 组件列表 */}
-      {componentList.map((component) => renderComponent(component))}
+      {componentList.map((component, index) =>
+        renderComponent(component, index)
+      )}
     </div>
   );
 }

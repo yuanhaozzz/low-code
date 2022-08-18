@@ -8,6 +8,12 @@
     z-index: 1041;
     box-shadow: 0 0 16px rgb(0 0 0 / 16%);
     user-select: none;
+    .element-setting-container{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
     // overflow-y: scroll;
     .style-color-select{
         position: absolute;

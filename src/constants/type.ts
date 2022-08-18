@@ -1,11 +1,5 @@
 import React from "react";
 
-export interface Style {
-  position?: string;
-  left?: number;
-  top?: number;
-  [propName: string]: any;
-}
 export interface Animation {
   [propName: string]: any;
 }
@@ -13,22 +7,17 @@ export interface Event {
   [propName: string]: any;
 }
 
-export interface ModifyGlobal {
-  style?: Style;
-  event?: Event;
-  animation?: Animation;
-}
-
 export interface Component {
   key: number;
+  element: any | undefined;
   isMoving: boolean;
   text: string;
   alternateLeft: number;
   alternateTop: number;
   type: string;
-  style;
+  style: any;
   event: Event;
-  animation: Animation;
+  animation: Animation[];
 }
 
 export interface CanvasOffset {
@@ -75,4 +64,10 @@ export interface GlobalDeclear {
   clearDoubleClickEL: () => void;
   modifyStyle: () => void;
   findCurrentElementStyle: () => string;
+  addAnimation: (animation: Animation) => void;
+  deleteAnimation: (index: number) => void;
+  modifyAnimation: (index: number, newAnimation) => void;
+  findAnimation: (id: number) => Animation;
+  modifyProperty: (key, newProperty) => void;
+  testModifySelectComponent: (element) => void;
 }

@@ -11,6 +11,7 @@ import "./style.scss";
 import { GlobalContext } from "src/global/globalCommon";
 
 import Style from "./components/Style/index";
+import Animation from "./components/Animation/index";
 
 const tab = ["样式", "动画", "触发"];
 
@@ -116,15 +117,18 @@ function ElementSetting() {
 
   return (
     <section className="element-setting-wrapper" id="show-setting" ref={setRef}>
-      {selectComponent.type === "1" && (
-        <Fragment>
-          {/* 导航标题 */}
-          {renderTop()}
-          {/* 样式 动画 触发 选项 */}
-          {renderTab()}
-          {tabIndex === 0 && <Style />}
-        </Fragment>
-      )}
+      <div className="element-setting-container">
+        {selectComponent.type === "1" && (
+          <Fragment>
+            {/* 导航标题 */}
+            {renderTop()}
+            {/* 样式 动画 触发 选项 */}
+            {renderTab()}
+            {tabIndex === 0 && <Style />}
+            {tabIndex === 1 && <Animation />}
+          </Fragment>
+        )}
+      </div>
     </section>
   );
 }

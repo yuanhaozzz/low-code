@@ -281,6 +281,7 @@ const CanvasSelectElement = () => {
   if (!selectComponent) {
     return <Fragment></Fragment>;
   }
+  console.log(selectComponent, "------------");
   const {
     left,
     top,
