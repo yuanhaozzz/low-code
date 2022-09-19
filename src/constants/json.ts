@@ -1,4 +1,11 @@
-import {} from "./type";
+export const jsonPage = {
+  page: 1,
+  style: {
+    backgroundColor: "transparent",
+    height: 0,
+  },
+  componentList: [],
+};
 
 export const jsonText = {
   type: "1",
@@ -22,6 +29,7 @@ export const jsonText = {
     position: "absolute",
     left: 0,
     top: 220,
+    backgroundColor: "transparent",
   },
   alternateLeft: 0,
   alternateTop: 220,
@@ -39,5 +47,5 @@ export const jsonText = {
       playState: "running",
     },
   ],
-  event: {},
+  event: [],
 };

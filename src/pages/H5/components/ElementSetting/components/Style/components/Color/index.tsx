@@ -31,7 +31,6 @@ const Color = (props: Props) => {
           </div>,
           document.querySelector(".element-setting-wrapper")
         )}
-
       <h3 className="left">文本颜色</h3>
       <div
         className="right icon-color-select"

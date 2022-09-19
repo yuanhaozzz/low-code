@@ -117,7 +117,11 @@ const Position = (props: Props) => {
       {/* 定位 */}
       <ul className="position-icon flex-space-between">
         {list.map((item) => (
-          <li key={item.id} onClick={() => handlePosition(item)}>
+          <li
+            key={item.id}
+            onClick={() => handlePosition(item)}
+            className="show-tips"
+          >
             <Tips title={item.name} />
             {/* 图标 */}
             <i className={item.className}></i>

@@ -1,0 +1,47 @@
+var li = document.querySelectorAll(".anim-item");
+let data = [...li].map((item, index) => {
+  const first = item.firstChild;
+  const last = item.lastChild;
+  const backgroundPosition = window.getComputedStyle(first).backgroundPosition;
+  const [x, y] = backgroundPosition.split(" ");
+  const obj = {
+    id: 40 + index + 1,
+    type: 3,
+    name: last.textContent,
+    x,
+    y,
+    isMoveIn: false,
+    animation: {
+      id: 40 + index + 1,
+      title: last.textContent,
+      aa: "......defaultAnimation",
+    },
+  };
+  return obj;
+});
+
+let aaaa = [];
+[...li].map((item, index) => {
+  const first = item.firstChild;
+  first.addEventListener("mouseover", (e) => {
+    const liEl = e.target;
+    const el = document.querySelector(".element-box");
+    const name = window.getComputedStyle(el).animationName;
+    const position = window.getComputedStyle(liEl).backgroundPosition;
+    const [x, y] = position.split(" ");
+    console.log(name);
+    aaaa.push({
+      name,
+      actionY: y,
+    });
+  });
+  return item;
+});
+
+data = data.map((item, index) => {
+  item.actionY = aaaa[index].actionY;
+  item.animation.name = aaaa[index].name;
+  return item;
+});
+
+JSON.stringify(data);

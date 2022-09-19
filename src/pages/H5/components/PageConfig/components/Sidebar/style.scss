@@ -1,0 +1,28 @@
+.page-sidebar-wrapper{
+    width: 40px;
+    height: 100%;
+    position: absolute;
+    left: -42px;
+    top: 0;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 8%), -1px 0 0 0 #e6ebed;
+    background-color: #fff;
+    box-sizing: border-box;
+    li{
+        width: 40px;
+        height: 40px;
+        color: #000;
+        cursor: pointer;
+        position: relative;
+        i{
+            font-size: 16px;
+        }
+        .num{
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+    li:hover{
+        color: #fff;
+        background-color: #1261ff;
+    }
+}

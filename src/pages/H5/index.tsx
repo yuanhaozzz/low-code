@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 
 import "./style.scss";
 import {
@@ -6,14 +6,22 @@ import {
   useGlobalData,
   GlobalContext,
 } from "src/global/globalCommon";
+import { jsonPage } from "src/constants/json";
 
 import Header from "./components/Header/index";
 import Canvas from "./components/Canvas/index";
 import ElementSetting from "./components/ElementSetting/index";
+import PageConfig from "./components/PageConfig/index";
 
 function H5() {
   const forceUpdate = useForceUpdate();
   const globalData = useGlobalData();
+
+  useEffect(() => {
+    // 添加第一页
+    globalData.addPage(jsonPage);
+    globalData.runListeners("pageConfig");
+  }, []);
 
   useLayoutEffect(() => {
     // 订阅根组件刷新
@@ -51,6 +59,8 @@ function H5() {
         <Canvas />
         {/* 元素属性 */}
         <ElementSetting />
+        {/* 页面设置 */}
+        <PageConfig />
       </GlobalContext.Provider>
     </div>
   );

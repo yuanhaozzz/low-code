@@ -1,0 +1,35 @@
+.page-config-wrapper{
+    position: absolute;
+    width: 260px;
+    height: calc(100% - 65px);
+    background-color: #fff;
+    top: 60px;
+    right: 0px;
+    z-index: 10;
+    box-shadow: 0 0 16px rgb(0 0 0 / 16%);
+    user-select: none;
+    .page-setting-container{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        .tab-list{
+            height: 40px;
+            background-color: #f1f5f9;
+            li{
+                width: 50%;
+                height: 100%;
+                color: #333;
+                cursor: pointer;
+            }
+            .action {
+                background-color: #fff;
+                font-weight: bold;
+            }
+        }
+        .page-content{
+            height: calc(100% - 40px);
+            overflow-y: scroll;
+        }
+    }
+}

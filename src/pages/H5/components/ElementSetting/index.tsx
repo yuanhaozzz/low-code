@@ -12,6 +12,7 @@ import { GlobalContext } from "src/global/globalCommon";
 
 import Style from "./components/Style/index";
 import Animation from "./components/Animation/index";
+import Event from "./components/Event/index";
 
 const tab = ["样式", "动画", "触发"];
 
@@ -126,6 +127,7 @@ function ElementSetting() {
             {renderTab()}
             {tabIndex === 0 && <Style />}
             {tabIndex === 1 && <Animation />}
+            {tabIndex === 2 && <Event />}
           </Fragment>
         )}
       </div>

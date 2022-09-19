@@ -1,27 +1,62 @@
-.tips{
+.common-tips{
     position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 2px 5px;
-    background-color: rgba(0, 0, 0, .8);
     color: #eee;
-    white-space: nowrap;
     font-size: 12px;
-    border-radius: 5px;
     opacity: 0;
+    visibility: hidden;
     transition: all .3s;
+    .common-tips-background{
+        background-color: rgba(0, 0, 0, .8);
+        white-space: nowrap;
+        padding: 4px 7px;
+        border-radius: 5px;
+    }
     .tips-bottom-arrow {
         position: absolute;
-        bottom: -12px;
-        left: 50%;
-        transform: translateX(-50%);
         border: 7px solid transparent;
-        border-top: 6px solid rgba(0, 0, 0, .8);
+      
 
     }
 }
-.open-top-tips:hover .tips{
-    top: -35px;
+
+.common-tips-top {
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    .common-tips-background{
+        margin-bottom: 12px;
+    }
+    .tips-bottom-arrow {
+        bottom: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-top: 6px solid rgba(0, 0, 0, .8);
+    }
+}
+
+.common-tips-left{
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    .common-tips-background{
+        margin-right: 12px;
+    }
+    .tips-bottom-arrow {
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0px;
+        border-left: 6px solid rgba(0, 0, 0, .8);
+    }
+}
+
+.show-tips:hover .common-tips-top {
+    top: -40px;
     opacity: 1;
+    visibility: visible;
+}
+
+.show-tips:hover .common-tips-left {
+    right: 35px;
+    opacity: 1;
+    visibility: visible;
 }

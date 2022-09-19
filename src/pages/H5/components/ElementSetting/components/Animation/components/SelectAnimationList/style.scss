@@ -8,9 +8,14 @@
     background-color: #fff;
     opacity: 0;
     transition: all .5s;
+    .list-wrapper{
+        height: calc(100% - 84px);
+        overflow-y: scroll;
+    }
     .list-container{
         padding: 20px 15px;
         flex-wrap: wrap;
+        align-items: flex-start;
         li{
             width: 76px;
             height: 76px;

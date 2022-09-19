@@ -8,6 +8,7 @@ import "./style.scss";
 function Header() {
   const global = useContext(GlobalContext);
   const addComponentJson = (json) => {
+    // global.addHistoryOperation(json);
     // 添加组件后 发布订阅更新
     global.add(json);
     global.runListeners("rootUpdate");

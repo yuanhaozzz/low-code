@@ -1,10 +1,24 @@
 import React from "react";
 
 export interface Animation {
-  [propName: string]: any;
+  id: number;
+  title: string;
+  name: string;
+  duration: number;
+  delay: number;
+  timingFunction: string;
+  direction: string;
+  count: number | string;
+  mode: string;
+  playState: string;
 }
+
 export interface Event {
-  [propName: string]: any;
+  eventType: number;
+  scenesType: string | number;
+  value: string;
+  name: string;
+  placeholder: string;
 }
 
 export interface Component {
@@ -16,7 +30,7 @@ export interface Component {
   alternateTop: number;
   type: string;
   style: any;
-  event: Event;
+  event: Event[];
   animation: Animation[];
 }
 
@@ -40,9 +54,17 @@ export interface MouseMove {
   clientY: number;
 }
 
+export interface Pages {
+  page: number;
+  style;
+  componentList: Component[];
+}
+
 export interface GlobalDeclear {
   globalData: GlobalDataType;
   listeners: any;
+  pages: any;
+  currentPageIndex: number;
   add: (component: Component) => void;
   subscribe: (key: string, callback: (e) => void) => () => void;
   runListeners: (key: string) => void;
@@ -70,4 +92,9 @@ export interface GlobalDeclear {
   findAnimation: (id: number) => Animation;
   modifyProperty: (key, newProperty) => void;
   testModifySelectComponent: (element) => void;
+  addHistoryOperation: (component: Component) => void;
+  deleteHistoryOperation: (component: Component) => void;
+  saveRecordHistoryOperation: (component: Component) => void;
+  deleteRecordHistoryOperation: (component: Component) => void;
+  switchPage: (index: number) => void;
 }

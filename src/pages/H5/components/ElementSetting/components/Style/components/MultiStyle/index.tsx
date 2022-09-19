@@ -304,7 +304,7 @@ function MultiStyle(props: IProps) {
         <div
           key={index}
           onClick={() => click(item)}
-          className="flex-center item"
+          className="flex-center item show-tips"
         >
           <Tips title={item.name} />
           {/* 图标 */}
@@ -312,13 +312,19 @@ function MultiStyle(props: IProps) {
         </div>
       ))}
       {/* 居中icon */}
-      <div onClick={() => handleCenter()} className="flex-center item">
+      <div
+        onClick={() => handleCenter()}
+        className="flex-center item show-tips"
+      >
         <Tips title="居中" />
         {/* 图标 */}
         <i className={center ? select : unselect}></i>
       </div>
       {/* 背景颜色icon */}
-      <div onClick={() => handleBackground()} className="flex-center item">
+      <div
+        onClick={() => handleBackground()}
+        className="flex-center item show-tips"
+      >
         <Tips title="背景颜色" />
         {/* 图标 */}
         <i className="icon-background"></i>
@@ -326,13 +332,13 @@ function MultiStyle(props: IProps) {
         <div className="background-line" style={{ backgroundColor }}></div>
       </div>
       {/* 行间距icon */}
-      <div onClick={() => display(2)} className="flex-center item">
+      <div onClick={() => display(2)} className="flex-center item show-tips">
         <Tips title="行间距" />
         {/* 图标 */}
         <i className="icon-light"></i>
       </div>
       {/* 字间距icon */}
-      <div onClick={() => display(3)} className="flex-center item">
+      <div onClick={() => display(3)} className="flex-center item show-tips">
         <Tips title="字间距" />
         {/* 图标 */}
         <i className="icon-font"></i>

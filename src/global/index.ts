@@ -9,16 +9,23 @@ import { deepCopy } from "src/utils/common";
 
 class global {
   globalData: GlobalDataType;
+  pages;
+  currentPageIndex: number;
   listeners: Listeners;
   selectComponent: any;
   canvasInfo: CanvasOffset;
   doubleClickEl: HTMLDivElement[];
-  test;
+  historyOperation: Component[];
+  recordHistoryOperation: Component[];
   // mouseMove: MouseMove;
   constructor() {
     this.globalData = {
       componentList: [],
     };
+    // 所有页面
+    this.pages = [];
+    // 当前页面下标
+    this.currentPageIndex = 0;
     // 收集订阅
     this.listeners = {};
     // 选中的组件
@@ -32,7 +39,10 @@ class global {
     };
     // 双击输入历史元素
     this.doubleClickEl = [];
-    this.test = {};
+    // 历史操作
+    this.historyOperation = [];
+    // 记录历史操作
+    this.recordHistoryOperation = [];
   }
 
   // 添加订阅
@@ -60,34 +70,50 @@ class global {
     return this.globalData.componentList;
   }
 
+  // 添加页面
+  addPage(page) {
+    this.pages.push(page);
+  }
+
+  // 删除页面
+  deletePage(index) {
+    this.pages.splice(index, 1);
+  }
+
+  switchPage(index) {
+    this.currentPageIndex = index;
+  }
+
   // 添加组件
   add(component: Component) {
     // 生成唯一key
     component.key = Math.random();
-    this.globalData.componentList.push(component);
+    const currentPage = this.pages[this.currentPageIndex];
+    currentPage.componentList.push(component);
     this.setSelectComponent(component.key);
   }
 
   // 添加组件
   delete(key: number) {
-    const { componentList } = this.globalData;
+    const currentPage = this.pages[this.currentPageIndex];
     const componentIndex = this.findIndex(key);
     if (componentIndex >= 0) {
-      componentList.splice(componentIndex, 1);
+      currentPage.componentList.splice(componentIndex, 1);
     }
   }
 
   // 清空组件
   clear() {
-    this.globalData.componentList = [];
+    const currentPage = this.pages[this.currentPageIndex];
+    currentPage.componentList = [];
   }
 
   // 修改组件
   modify(component: Component) {
     this.selectComponent = component;
     const { key } = component;
-    const { componentList } = this.globalData;
-    this.globalData.componentList = componentList.map((item) => {
+    const currentPage = this.pages[this.currentPageIndex];
+    currentPage.componentList = currentPage.componentList.map((item) => {
       if (item.key === key) {
         item = { ...item, ...component };
       }
@@ -97,28 +123,30 @@ class global {
 
   // 修改组件属性
   modifyProperty(key, newProperty) {
-    this.globalData.componentList = this.globalData.componentList.map(
-      (item) => {
-        if (item.key === key) {
-          item = { ...item, ...newProperty };
-        }
-        return item;
+    const currentPage = this.pages[this.currentPageIndex];
+    currentPage.componentList = currentPage.componentList.map((item) => {
+      if (item.key === key) {
+        item = { ...item, ...newProperty };
       }
-    );
-    console.log(this.globalData.componentList);
+      return item;
+    });
   }
 
   // 查找组件
   find(key: number) {
-    const { componentList } = this.globalData;
-    const component = componentList.find((component) => component.key === key);
+    const currentPage = this.pages[this.currentPageIndex];
+    const component = currentPage.componentList.find(
+      (component) => component.key === key
+    );
     return component;
   }
 
   // 查找组件下标
   findIndex(key: number) {
-    const { componentList } = this.globalData;
-    const index = componentList.findIndex((component) => component.key === key);
+    const currentPage = this.pages[this.currentPageIndex];
+    const index = currentPage.componentList.findIndex(
+      (component) => component.key === key
+    );
     return index;
   }
 
@@ -200,6 +228,28 @@ class global {
   clearDoubleClickEL() {
     this.doubleClickEl.forEach((el) => el.removeAttribute("contenteditable"));
     this.doubleClickEl = [];
+  }
+
+  // 添加历史操作
+  addHistoryOperation(component: Component) {
+    this.historyOperation.push(component);
+  }
+
+  // 删除历史操作
+  deleteHistoryOperation() {
+    const component = this.historyOperation.pop();
+    this.saveRecordHistoryOperation(component);
+  }
+
+  // 添加
+  saveRecordHistoryOperation(component: Component) {
+    this.recordHistoryOperation.push(component);
+  }
+
+  // 删除历史操作
+  deleteRecordHistoryOperation() {
+    const component = this.recordHistoryOperation.pop();
+    this.addHistoryOperation(component);
   }
 }
 

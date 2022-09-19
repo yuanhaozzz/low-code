@@ -18,6 +18,7 @@ let referencePoint = [];
 // let isLeftLine: HTMLDivElement | null = null;
 function CanvasContent() {
   const global = useContext(GlobalContext);
+  const { pages, currentPageIndex } = global;
   const { componentList } = global.globalData;
 
   // 订阅鼠标按下
@@ -235,13 +236,23 @@ function CanvasContent() {
     return <FindComponent componentKey={key} key={key} index={index} />;
   };
 
+  if (!pages[currentPageIndex]) {
+    return <Fragment></Fragment>;
+  }
+
   return (
-    <div className="canvas-content-wrapper" onMouseDown={mouseDown}>
-      {/* 组件列表 */}
-      {componentList.map((component, index) =>
-        renderComponent(component, index)
-      )}
-    </div>
+    <ul className="canvas-content-wrapper" onMouseDown={mouseDown}>
+      {/* 页面 */}
+      {pages.map((item, pageIndex) => (
+        <li key={item.page}>
+          {/* 当前页面 组件列表 */}
+          {pageIndex === currentPageIndex &&
+            item.componentList.map((component, index) =>
+              renderComponent(component, index)
+            )}
+        </li>
+      ))}
+    </ul>
   );
 }
 

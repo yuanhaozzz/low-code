@@ -110,28 +110,30 @@ const SelectAnimationList = (props: Props, ref) => {
   const renderAnimationEntry = (type) => {
     const listAlternate = list.filter((item) => item.type === type);
     return (
-      <ul className="list-container flex-start">
-        {listAlternate.map((item) => (
-          <li
-            key={item.id}
-            onMouseEnter={() => mouseEvent(item, item.id, true)}
-            onMouseLeave={() => mouseEvent(item, item.id, false)}
-            onClick={() => selectAnimation(item)}
-          >
-            {/* 图标 */}
-            <div
-              className="item-icon"
-              style={{
-                background: `url(https://img.ikstatic.cn/MTY2MDYxODk2MDY1NSMgNTAjd2VicA==.webp) ${
-                  item.x
-                } ${item.isMoveIn ? item.actionY : item.y}`,
-              }}
-            ></div>
-            {/* 名称 */}
-            <h4>{item.name}</h4>
-          </li>
-        ))}
-      </ul>
+      <div className="list-wrapper">
+        <ul className="list-container flex-start">
+          {listAlternate.map((item) => (
+            <li
+              key={item.id}
+              onMouseEnter={() => mouseEvent(item, item.id, true)}
+              onMouseLeave={() => mouseEvent(item, item.id, false)}
+              onClick={() => selectAnimation(item)}
+            >
+              {/* 图标 */}
+              <div
+                className="item-icon"
+                style={{
+                  background: `url(https://img.ikstatic.cn/MTY2MDYxODk2MDY1NSMgNTAjd2VicA==.webp) ${
+                    item.x
+                  } ${item.isMoveIn ? item.actionY : item.y}`,
+                }}
+              ></div>
+              {/* 名称 */}
+              <h4>{item.name}</h4>
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   };
 
