@@ -2,7 +2,7 @@
 export const online = "";
 // 预发布域名
 export const beta = "";
-// 测试环境域名
+// 测试环境域名 
 export const test = "";
 // 本地域名
 export const local = "localhost:3000";
