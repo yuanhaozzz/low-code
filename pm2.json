@@ -1,6 +1,6 @@
 {
     "apps": {
-        "name": "low-code-3005",
+        "name": "low-code-3007",
         "script": "app.js",
         "cwd": "./",
         "args": "",
