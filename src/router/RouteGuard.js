@@ -13,8 +13,8 @@ class RouteGuard extends Component {
   }
 
   render() {
-    const pathname = window.location.pathname;
-    const router = RouterConfig.find((item) => item.path === pathname);
+    const pathname = window.location.pathname 
+    const router = RouterConfig.find((item) => ('/lowcode' + item.path) === pathname);
     document.title = router?.name || "not fount";
     return router ? (
       <Fragment>
