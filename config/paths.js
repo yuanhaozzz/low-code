@@ -11,7 +11,7 @@ const publicUrlOrPath = getPublicUrlOrPath(
   process.env.PUBLIC_URL
 );
 
-const buildPath = "dist";
+const buildPath = "dist/lowcode";
 
 const moduleFileExtensions = [".ts", ".tsx", ".js", ".jsx", ".json", ".scss"];
 
