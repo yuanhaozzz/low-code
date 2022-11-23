@@ -20,7 +20,6 @@ function CanvasContent() {
   const global = useContext(GlobalContext);
   const { pages, currentPageIndex } = global;
   const { componentList } = global.globalData;
-
   // 订阅鼠标按下
   useEffect(() => {
     const unsubscribe = global.subscribe("mousedown", (e) => {
@@ -108,6 +107,7 @@ function CanvasContent() {
       // 画布中心点
       { h: canvasWidth / 2, v: canvasHeight / 2 },
     ];
+    console.log(global.getComponentList(), '------------------')
     global.getComponentList().forEach((component) => {
       const { left, top, width, height } = component.style;
       if (componentKey * 1 !== component.key) {
@@ -207,7 +207,6 @@ function CanvasContent() {
 
   const mouseUp = () => {
     const component = global.getSelectComponent();
-    console.log(component, "---------------------");
     if (component && component.isMoving) {
       // 设置组件 标记为不能移动
       component.isMoving = false;

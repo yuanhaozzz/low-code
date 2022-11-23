@@ -35,14 +35,14 @@ function Header() {
           文本
         </div>
         <div className={`header-center-item icon-image flex-end`}>图片</div>
-        <div className={`header-center-item icon-music flex-end`}>音乐</div>
-        <div className={`header-center-item icon-video flex-end`}>视频</div>
-        <div
+        {/* <div className={`header-center-item icon-music flex-end`}>音乐</div> */}
+        {/* <div className={`header-center-item icon-video flex-end`}>视频</div> */}
+        {/* <div
           className={`header-center-item icon-clear flex-end`}
           onClick={() => clear()}
         >
           清除
-        </div>
+        </div> */}
       </div>
     );
   };
@@ -50,11 +50,11 @@ function Header() {
   const renderRight = () => {
     return (
       <div className="header-right flex-start">
-        <button className="button-hover-default">预览</button>
-        <button className="button-hover-default">保存</button>
-        <button className="send button-hover-send" onClick={() => publish()}>
+        {/* <button className="button-hover-default">预览</button> */}
+        {/* <button className="button-hover-default">保存</button> */}
+        {/* <button className="send button-hover-send" onClick={() => publish()}>
           发布
-        </button>
+        </button> */}
         <button className="quit button-hover-quit">退出</button>
       </div>
     );

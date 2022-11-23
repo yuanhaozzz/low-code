@@ -67,7 +67,8 @@ class global {
   };
 
   getComponentList() {
-    return this.globalData.componentList;
+    const currentPage = this.pages[this.currentPageIndex]
+    return currentPage.componentList;
   }
 
   // 添加页面

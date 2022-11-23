@@ -60,7 +60,7 @@ function H5() {
         {/* 元素属性 */}
         <ElementSetting />
         {/* 页面设置 */}
-        <PageConfig />
+        {/* <PageConfig /> */}
       </GlobalContext.Provider>
     </div>
   );
