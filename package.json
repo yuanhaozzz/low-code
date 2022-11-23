@@ -74,7 +74,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "eslint --fix src --ext '.js,.jsx' --fix",
-    "eslint": "eslint src --ext '.js,.jsx' --fix"
+    "eslint": "eslint src --ext '.js,.jsx' --fix",
+    "prod": "pm2 start pm2.json"
   },
   "eslintConfig": {
     "extends": [
